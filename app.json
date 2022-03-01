@@ -1,0 +1,8 @@
+{
+  "apps": [
+    {
+      "name": "bomb",
+      "script": "serve -s -l 3456"
+    }
+  ]
+}
