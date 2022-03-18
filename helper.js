@@ -12,11 +12,11 @@ const DEFAULT_WEB3GL = {
   balanceOfMland: '0',
   connect,
   disconnect,
-  getBalanceNativeCoin,
-  getBalanceOfMland,
-  checkEnoughBalance,
-  getInfoToken,
-  getWeb3Gl,
+  // getBalanceNativeCoin,
+  // getBalanceOfMland,
+  // checkEnoughBalance,
+  // getInfoToken,
+  // getWeb3Gl,
   signMessage,
   signMessageResponse: '',
   sendTransaction,
@@ -40,10 +40,6 @@ const checkEnoughBalance = (amountCompare) => {
 };
 
 window.web3gl = { ...DEFAULT_WEB3GL };
-
-function abcabcabc() {
-  alert(123);
-}
 
 async function connect() {
   if (!window.ethereum) {
@@ -77,7 +73,7 @@ const getBalanceNativeCoin = async () => {
     return;
   }
   const balance = await web3.eth.getBalance(window.web3gl.address);
-  window.web3gl.balanceNativeCoin = balance;
+  window.web3gl.balanceNativeCoin = formatBalance(balance);
 };
 
 async function getInfoToken() {
