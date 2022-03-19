@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <title>Unity WebGL Player | Bomb</title>
+  <link rel="shortcut icon" href="TemplateData/favicon.ico">
+  <link rel="stylesheet" href="TemplateData/style.css">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="tailwind.config.js"></script>
+</head>
+
+<body class="bg-bg1 bg-no-repeat bg-cover">
+  <div class="flex justify-between items-center px-8 mt-7">
+    <div class="flex items-center">
+      <object class="cursor-pointer mr-10" data="img/logo.svg" type="image/svg+xml"></object>
+      <object class="cursor-pointer mr-10" data="img/home-btn.svg" type="image/svg+xml"></object>
+      <object class="cursor-pointer mr-10" data="img/marketplace-btn.svg" type="image/svg+xml"></object>
+      <object class="cursor-pointer mr-10" data="img/learn-btn.svg" type="image/svg+xml"></object>
+      <object class="cursor-pointer mr-10" data="img/arcade-btn.svg" type="image/svg+xml"></object>
+    </div>
+    <div class="flex items-center">
+      <!--				token-->
+      <object data="img/coin-icon.svg" type="image/svg+xml"></object>
+      <!--				number-->
+      <div class="text-40-40 px-5 rounded-[8px] bg-[#000000]/[0.3] mx-2">
+        16
+      </div>
+      <!--				notification-->
+      <object data="img/notification-icon.svg" type="image/svg+xml"></object>
+      <span id="wallet-address"></span>
+    </div>
+  </div>
+
+  <div id="unity-container" class="unity-desktop flex flex-col items-center mt-20">
+    <canvas id="unity-canvas" width=1024 height=600></canvas>
+    <div id="unity-loading-bar">
+      <div id="unity-logo"></div>
+      <div id="unity-progress-bar-empty">
+        <div id="unity-progress-bar-full"></div>
+      </div>
+    </div>
+    <div id="unity-footer" class="flex justify-around w-full mt-4">
+      <div id="unity-webgl-logo"></div>
+      <div>
+        <div id="unity-fullscreen-button">
+        </div>
+        <div id="unity-build-title" class="text-24-32 font-bold align-center">Minera Land</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="flex justify-center items-center">
+    <div class="text-20-28 text-white bg-[#07EF9C] px-28 py-5 rounded-[0.5rem]">
+      SEVER ONLINE
+    </div>
+  </div>
+
+  <div class="flex justify-center mt-20 px-20">
+    <div class="flex flex-col justify-center items-center mr-2.5 py-5 bg-[#000000]/[0.3] w-[40rem] rounded-[0.625rem]">
+      <div class="text-[#EAD40C] text-50-50">MLAND</div>
+      <div class="text-50-68 text-white">$0.01</div>
+    </div>
+    <div class="flex flex-col justify-center items-center mr-2.5 py-5 bg-[#000000]/[0.3] w-[40rem] rounded-[0.625rem]">
+      <div class="text-[#EAD40C] text-50-50">DIGGER SOLD</div>
+      <div class="text-50-68 text-white">28,123,125</div>
+    </div>
+    <div class="flex flex-col justify-center items-center py-5 bg-[#000000]/[0.3] w-[40rem] rounded-[0.625rem]">
+      <div class="text-[#EAD40C] text-50-50">HOUSE SOLD</div>
+      <div class="text-50-68 text-white">123/5000</div>
+    </div>
+  </div>
+
+  <div class="flex justify-center my-9 px-20">
+    <div class="flex flex-col justify-start items-center mr-2.5 p-5 bg-[#000000]/[0.3] w-[40rem] rounded-[0.625rem]">
+      <div class="flex justify-between w-full">
+        <div class="text-24-32 text-white">New Diggers added</div>
+        <div class="text-24-32 text-white">20/11/2022</div>
+      </div>
+      <hr class="solid text-[#FFFFFF]/[0.2] w-full mt-3">
+    </div>
+    <div class="flex flex-col justify-start items-center mr-2.5 p-5 bg-[#000000]/[0.3] w-[40rem] rounded-[0.625rem]">
+      <div class="flex justify-between w-full">
+        <div class="text-16-22 text-white">Sever Update</div>
+        <div class="text-16-22 text-white">03/08/2022</div>
+      </div>
+      <hr class="solid text-[#FFFFFF]/[0.2] w-full mt-3">
+    </div>
+    <div class="flex flex-col justify-start items-center p-5 bg-[#000000]/[0.3] w-[40rem] rounded-[0.625rem]">
+      <div class="flex justify-between w-full">
+        <div class="text-16-22 text-white">New Diggers added</div>
+        <div class="text-16-22 text-white">20/11/2022</div>
+      </div>
+      <hr class="solid text-[#FFFFFF]/[0.2] w-full mt-3">
+    </div>
+  </div>
+
+  <script>
+    var buildUrl = "Build";
+    var loaderUrl = buildUrl + "/MlandCryptoDemo.loader.js";
+    var config = {
+      dataUrl: buildUrl + "/MlandCryptoDemo.data",
+      frameworkUrl: buildUrl + "/MlandCryptoDemo.framework.js",
+      codeUrl: buildUrl + "/MlandCryptoDemo.wasm",
+      streamingAssetsUrl: "StreamingAssets",
+      companyName: "DefaultCompany",
+      productName: "Bomb",
+      productVersion: "1.0",
+    };
+
+    var container = document.querySelector("#unity-container");
+    var canvas = document.querySelector("#unity-canvas");
+    var loadingBar = document.querySelector("#unity-loading-bar");
+    var progressBarFull = document.querySelector("#unity-progress-bar-full");
+    var fullscreenButton = document.querySelector("#unity-fullscreen-button");
+    var mobileWarning = document.querySelector("#unity-mobile-warning");
+
+    // By default Unity keeps WebGL canvas render target size matched with
+    // the DOM size of the canvas element (scaled by window.devicePixelRatio)
+    // Set this to false if you want to decouple this synchronization from
+    // happening inside the engine, and you would instead like to size up
+    // the canvas DOM size and WebGL render target sizes yourself.
+    // config.matchWebGLToCanvasSize = false;
+
+    if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
+      container.className = "unity-mobile";
+      // Avoid draining fillrate performance on mobile devices,
+      // and default/override low DPI mode on mobile browsers.
+      config.devicePixelRatio = 1;
+      mobileWarning.style.display = "block";
+      setTimeout(() => {
+        mobileWarning.style.display = "none";
+      }, 5000);
+    } else {
+      canvas.style.width = "1024px";
+      canvas.style.height = "600px";
+    }
+    loadingBar.style.display = "block";
+
+    var script = document.createElement("script");
+    script.src = loaderUrl;
+    script.onload = () => {
+      createUnityInstance(canvas, config, (progress) => {
+        progressBarFull.style.width = 100 * progress + "%";
+      }).then((unityInstance) => {
+        loadingBar.style.display = "none";
+        fullscreenButton.onclick = () => {
+          unityInstance.SetFullscreen(1);
+        };
+      }).catch((message) => {
+        alert(message);
+      });
+    };
+    document.body.appendChild(script);
+  </script>
+  <script src="TemplateData/web3.min.js"></script>
+  <script src="TemplateData/web3Connect.js"></script>
+</body>
+
+</html>
