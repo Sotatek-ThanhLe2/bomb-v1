@@ -1,6 +1,9 @@
 const houseContract = new web3.eth.Contract(abiDigger, HOUSE_CONTRACT);
 
-window.web3gl.house = {};
+window.web3gl.house = {
+  withdraw,
+  burn,
+};
 
 async function withdraw() {
   await houseContract.methods.withdraw().call();
