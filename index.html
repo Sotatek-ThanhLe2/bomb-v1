@@ -1,41 +1,57 @@
 <!DOCTYPE html>
 <html lang="en-us">
-	<head>
-		<meta charset="utf-8">
-		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-		<title>Unity WebGL Player | Bomb</title>
-		<link rel="shortcut icon" href="TemplateData/favicon.ico">
-		<link rel="stylesheet" href="TemplateData/style.css">
 
-		<!--  tailwind  -->
-		<script src="https://cdn.tailwindcss.com"></script>
-		<script src="tailwind.config.js"></script>
-    <script type="text/javascript" src="web3.min.js"></script>
-    <script src='https://cdn.jsdelivr.net/npm/bignumber.js@9.0.2/bignumber.min.js'></script>
-    <script type="text/javascript" src="abiMland.js"></script>
-    <script type="text/javascript" src="helper.js"></script>
-  </head>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <title>Unity WebGL Player | Bomb</title>
+  <link rel="shortcut icon" href="TemplateData/favicon.ico">
+  <link rel="stylesheet" href="TemplateData/style.css">
 
-	<body class="bg-bg1 bg-no-repeat bg-cover">
-		<div class="flex justify-between items-center px-8 mt-7">
-			<div class="flex items-center">
-				<object class="cursor-pointer mr-10" data="img/logo.svg" type="image/svg+xml"></object>
-				<object class="cursor-pointer mr-10" data="img/home-btn.svg" type="image/svg+xml"></object>
-				<object class="cursor-pointer mr-10" data="img/marketplace-btn.svg" type="image/svg+xml"></object>
-				<object class="cursor-pointer mr-10" data="img/learn-btn.svg" type="image/svg+xml"></object>
-				<object class="cursor-pointer mr-10" data="img/arcade-btn.svg" type="image/svg+xml"></object>
-			</div>
-			<div class="flex items-center">
-				<!--				token-->
-				<object data="img/coin-icon.svg" type="image/svg+xml"></object>
-				<!--				number-->
-				<div class="text-40-40 px-5 rounded-[8px] bg-[#000000]/[0.3]">
-					16
-				</div>
-				<!--				notification-->
-				<object data="img/notification-icon.svg" type="image/svg+xml"></object>
-			</div>
-		</div>
+  <!--  tailwind  -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="tailwind.config.js"></script>
+  <script type="text/javascript" src="env.js"></script>
+  <script type="text/javascript" src="web3.min.js"></script>
+  <script src='https://cdn.jsdelivr.net/npm/bignumber.js@9.0.2/bignumber.min.js'></script>
+  <script type="text/javascript" src="abiMland.js"></script>
+  <script type="text/javascript" src="abiDigger.js"></script>
+  <script type="text/javascript" src="helper.js"></script>
+  <script type="text/javascript" src="helper-digger.js"></script>
+</head>
+
+<body class="bg-bg1 bg-no-repeat bg-cover">
+  <div class="button">
+    <button onclick="window.web3gl.digger.hello()">window.web3gl.digger.hello</button>
+    <button onclick="connect()">connect</button>
+    <button onclick="connect()">connect</button>
+    <button onclick="diggerMint(2)">Mint</button>
+    <button onclick="getWeb3Gl()">getWeb3Gl</button>
+    <button
+      onclick="diggerGetClaimableTokens('0x1168271DF29afa411Ab84f3086eD24389A5Bb4A8')">diggerGetClaimableTokens</button>
+    <button onclick="getProcessableTokens('0x1168271DF29afa411Ab84f3086eD24389A5Bb4A8')">getProcessableTokens</button>
+  </div>
+
+  <div class="flex justify-between items-center px-8 mt-7">
+    <div class="flex items-center">
+      <object class="cursor-pointer mr-10" data="img/logo.svg" type="image/svg+xml"></object>
+      <object class="cursor-pointer mr-10" data="img/home-btn.svg" type="image/svg+xml"></object>
+      <object class="cursor-pointer mr-10" data="img/marketplace-btn.svg" type="image/svg+xml"></object>
+      <object class="cursor-pointer mr-10" data="img/learn-btn.svg" type="image/svg+xml"></object>
+      <object class="cursor-pointer mr-10" data="img/arcade-btn.svg" type="image/svg+xml"></object>
+    </div>
+    <div class="flex items-center">
+      <!--				token-->
+      <object data="img/coin-icon.svg" type="image/svg+xml"></object>
+      <!--				number-->
+      <div class="text-40-40 px-5 rounded-[8px] bg-[#000000]/[0.3]">
+        16
+      </div>
+      <!--				notification-->
+      <object data="img/notification-icon.svg" type="image/svg+xml"></object>
+      <span id="wallet-address"></span>
+    </div>
+  </div>
 
   <div id="unity-container" class="unity-desktop flex flex-col items-center mt-20">
     <canvas id="unity-canvas" width=1024 height=600></canvas>

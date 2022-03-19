@@ -1,9 +1,5 @@
-const CHAIN_ID_POLYGON_MAINET = 137;
-const CHAIN_ID_POLYGON_TESTNET = 80001;
-const MESSAGE_SIGN = 'Hello_World';
-const MLAND_TOKEN = '0x5Ac54dD9c97d5b7d2CD86B687d12147aeDDcC31a';
 const DEFAULT_WEB3GL = {
-  networkId: CHAIN_ID_POLYGON_MAINET,
+  networkId: CHAIN_ID_POLYGON_TESTNET,
   address: '',
   signature: '',
   symbol: '',
@@ -12,11 +8,11 @@ const DEFAULT_WEB3GL = {
   balanceOfMland: '0',
   connect,
   disconnect,
-  // getBalanceNativeCoin,
-  // getBalanceOfMland,
-  // checkEnoughBalance,
-  // getInfoToken,
-  // getWeb3Gl,
+  getBalanceNativeCoin,
+  getBalanceOfMland,
+  checkEnoughBalance,
+  getInfoToken,
+  getWeb3Gl,
   signMessage,
   signMessageResponse: '',
   sendTransaction,
@@ -24,22 +20,35 @@ const DEFAULT_WEB3GL = {
   sendContract,
   sendContractResponse: '',
 };
+
 const web3 = new Web3(window.ethereum);
 const contract = new web3.eth.Contract(abiMland, MLAND_TOKEN);
 
-const formatBalance = (balance) => {
+function formatBalance(balance) {
   return new BigNumber(balance).div(10 ** 18).toString();
-};
+}
 
-const checkEnoughBalance = (amountCompare) => {
+function formatAddress(wallet) {
+  return String(wallet).slice(0, 4) + '...' + String(wallet).slice(-4);
+}
+
+function checkEnoughBalance(amountCompare) {
   if (new BigNumber(window.web3gl.balanceOfMland).minus(amountCompare).gte(0)) {
     return true;
   }
   alert('Insufficient Amount Minera Token');
   return false;
-};
+}
 
 window.web3gl = { ...DEFAULT_WEB3GL };
+
+window.ethereum.on('accountsChanged', async function (accounts) {
+  // Time to reload your interface with accounts[0]!
+  console.log(accounts, 'accounts');
+  await window.web3gl.disconnect();
+  await window.web3gl.connect();
+  window.web3gl.getWeb3Gl();
+});
 
 async function connect() {
   if (!window.ethereum) {
@@ -47,17 +56,18 @@ async function connect() {
     return;
   }
   const chainId = await web3.eth.getChainId();
-  if (chainId !== CHAIN_ID_POLYGON_MAINET) {
+  if (chainId !== CHAIN_ID_POLYGON_TESTNET) {
     alert('wrong network');
     await window.ethereum.request({
       method: 'wallet_switchEthereumChain',
-      params: [{ chainId: web3.utils.toHex(CHAIN_ID_POLYGON_MAINET) }],
+      params: [{ chainId: web3.utils.toHex(CHAIN_ID_POLYGON_TESTNET) }],
     });
   }
 
   const acc = await window.ethereum.request({
     method: 'eth_requestAccounts',
   });
+  // document.getElementById('wallet-address').innerHTML = formatAddress(acc[0]);
   const signature = await web3.eth.personal.sign(MESSAGE_SIGN, acc[0]);
   window.web3gl.address = acc[0];
   window.web3gl.signature = signature;
@@ -67,14 +77,14 @@ async function disconnect() {
   window.web3gl = DEFAULT_WEB3GL;
 }
 
-const getBalanceNativeCoin = async () => {
+async function getBalanceNativeCoin() {
   if (!window.web3gl.address) {
     alert('connect metamask ...');
     return;
   }
   const balance = await web3.eth.getBalance(window.web3gl.address);
   window.web3gl.balanceNativeCoin = formatBalance(balance);
-};
+}
 
 async function getInfoToken() {
   if (!window.web3gl.address) {
@@ -175,8 +185,8 @@ async function sendContract(
     });
 }
 
-const getWeb3Gl = () => {
+async function getWeb3Gl() {
   if (!window.ethereum) return;
   console.log(window.web3gl, 'wallet');
   return window.web3gl;
-};
+}
