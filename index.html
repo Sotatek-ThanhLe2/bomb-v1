@@ -7,31 +7,11 @@
   <title>Unity WebGL Player | Bomb</title>
   <link rel="shortcut icon" href="TemplateData/favicon.ico">
   <link rel="stylesheet" href="TemplateData/style.css">
-
-  <!--  tailwind  -->
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="tailwind.config.js"></script>
-  <script type="text/javascript" src="env.js"></script>
-  <script type="text/javascript" src="web3.min.js"></script>
-  <script src='https://cdn.jsdelivr.net/npm/bignumber.js@9.0.2/bignumber.min.js'></script>
-  <script type="text/javascript" src="abiMland.js"></script>
-  <script type="text/javascript" src="abiDigger.js"></script>
-  <script type="text/javascript" src="helper.js"></script>
-  <script type="text/javascript" src="helper-digger.js"></script>
 </head>
 
 <body class="bg-bg1 bg-no-repeat bg-cover">
-  <div class="button">
-    <button onclick="window.web3gl.digger.hello()">window.web3gl.digger.hello</button>
-    <button onclick="connect()">connect</button>
-    <button onclick="connect()">connect</button>
-    <button onclick="diggerMint(2)">Mint</button>
-    <button onclick="getWeb3Gl()">getWeb3Gl</button>
-    <button
-      onclick="diggerGetClaimableTokens('0x1168271DF29afa411Ab84f3086eD24389A5Bb4A8')">diggerGetClaimableTokens</button>
-    <button onclick="getProcessableTokens('0x1168271DF29afa411Ab84f3086eD24389A5Bb4A8')">getProcessableTokens</button>
-  </div>
-
   <div class="flex justify-between items-center px-8 mt-7">
     <div class="flex items-center">
       <object class="cursor-pointer mr-10" data="img/logo.svg" type="image/svg+xml"></object>
@@ -44,7 +24,7 @@
       <!--				token-->
       <object data="img/coin-icon.svg" type="image/svg+xml"></object>
       <!--				number-->
-      <div class="text-40-40 px-5 rounded-[8px] bg-[#000000]/[0.3]">
+      <div class="text-40-40 px-5 rounded-[8px] bg-[#000000]/[0.3] mx-2">
         16
       </div>
       <!--				notification-->
@@ -61,12 +41,12 @@
         <div id="unity-progress-bar-full"></div>
       </div>
     </div>
-    <div id="unity-warning"></div>
     <div id="unity-footer" class="flex justify-around w-full mt-4">
       <div id="unity-webgl-logo"></div>
       <div>
-        <div id="unity-fullscreen-button"></div>
-        <div id="unity-build-title" class="text-24-32 font-bold">Minera Land</div>
+        <div id="unity-fullscreen-button">
+        </div>
+        <div id="unity-build-title" class="text-24-32 font-bold align-center">Minera Land</div>
       </div>
     </div>
   </div>
@@ -116,55 +96,25 @@
     </div>
   </div>
 
-
-
-
-
   <script>
+    var buildUrl = "Build";
+    var loaderUrl = buildUrl + "/MlandCryptoDemo.loader.js";
+    var config = {
+      dataUrl: buildUrl + "/MlandCryptoDemo.data",
+      frameworkUrl: buildUrl + "/MlandCryptoDemo.framework.js",
+      codeUrl: buildUrl + "/MlandCryptoDemo.wasm",
+      streamingAssetsUrl: "StreamingAssets",
+      companyName: "DefaultCompany",
+      productName: "Bomb",
+      productVersion: "1.0",
+    };
+
     var container = document.querySelector("#unity-container");
     var canvas = document.querySelector("#unity-canvas");
     var loadingBar = document.querySelector("#unity-loading-bar");
     var progressBarFull = document.querySelector("#unity-progress-bar-full");
     var fullscreenButton = document.querySelector("#unity-fullscreen-button");
-    var warningBanner = document.querySelector("#unity-warning");
-
-    // Shows a temporary message banner/ribbon for a few seconds, or
-    // a permanent error message on top of the canvas if type=='error'.
-    // If type=='warning', a yellow highlight color is used.
-    // Modify or remove this function to customize the visually presented
-    // way that non-critical warnings and error messages are presented to the
-    // user.
-    function unityShowBanner(msg, type) {
-      function updateBannerVisibility() {
-        warningBanner.style.display = warningBanner.children.length ? 'block' : 'none';
-      }
-
-      var div = document.createElement('div');
-      div.innerHTML = msg;
-      warningBanner.appendChild(div);
-      if (type == 'error') div.style = 'background: red; padding: 10px;';
-      else {
-        if (type == 'warning') div.style = 'background: yellow; padding: 10px;';
-        setTimeout(function () {
-          warningBanner.removeChild(div);
-          updateBannerVisibility();
-        }, 5000);
-      }
-      updateBannerVisibility();
-    }
-
-    var buildUrl = "Build";
-    var loaderUrl = buildUrl + "/bomb2.loader.js";
-    var config = {
-      dataUrl: buildUrl + "/bomb2.data",
-      frameworkUrl: buildUrl + "/bomb2.framework.js",
-      codeUrl: buildUrl + "/bomb2.wasm",
-      streamingAssetsUrl: "StreamingAssets",
-      companyName: "DefaultCompany",
-      productName: "Bomb",
-      productVersion: "1.0",
-      showBanner: unityShowBanner,
-    };
+    var mobileWarning = document.querySelector("#unity-mobile-warning");
 
     // By default Unity keeps WebGL canvas render target size matched with
     // the DOM size of the canvas element (scaled by window.devicePixelRatio)
@@ -178,7 +128,10 @@
       // Avoid draining fillrate performance on mobile devices,
       // and default/override low DPI mode on mobile browsers.
       config.devicePixelRatio = 1;
-      unityShowBanner('WebGL builds are not supported on mobile devices.');
+      mobileWarning.style.display = "block";
+      setTimeout(() => {
+        mobileWarning.style.display = "none";
+      }, 5000);
     } else {
       canvas.style.width = "1024px";
       canvas.style.height = "600px";
@@ -201,6 +154,8 @@
     };
     document.body.appendChild(script);
   </script>
+  <script src="TemplateData/web3.min.js"></script>
+  <script src="TemplateData/web3Connect.js"></script>
 </body>
 
 </html>
