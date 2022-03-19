@@ -1,6 +1,8 @@
 body {
   padding: 0;
   margin: 0;
+  min-width: 1440px;
+  overflow-x: auto;
 }
 #unity-canvas {
   background: #231f20;

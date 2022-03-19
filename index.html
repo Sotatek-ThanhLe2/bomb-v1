@@ -7,8 +7,11 @@
   <title>Unity WebGL Player | Bomb</title>
   <link rel="shortcut icon" href="TemplateData/favicon.ico">
   <link rel="stylesheet" href="TemplateData/style.css">
+
+  <!--  tailwind  -->
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="tailwind.config.js"></script>
+
 </head>
 
 <body class="bg-bg1 bg-no-repeat bg-cover">
@@ -22,14 +25,14 @@
     </div>
     <div class="flex items-center">
       <!--				token-->
-      <object data="img/coin-icon.svg" type="image/svg+xml"></object>
+      <img src="/img/coin.png" width="48" height="48" alt="">
       <!--				number-->
-      <div class="text-40-40 px-5 rounded-[8px] bg-[#000000]/[0.3] mx-2">
-        16
+      <div id="wallet-mland-token" class="text-40-40 px-2 rounded-[8px] text-white bg-[#000000]/[0.3] mx-2">
       </div>
       <!--				notification-->
       <object data="img/notification-icon.svg" type="image/svg+xml"></object>
-      <span id="wallet-address"></span>
+      <button onclick="window.web3gl.connect()" id="wallet-address"
+        class="text-3xl p-2 rounded-[8px] text-white bg-[#EAD40C]/[0.8] mx-2 w-30"></button>
     </div>
   </div>
 
@@ -155,7 +158,15 @@
     document.body.appendChild(script);
   </script>
   <script src="TemplateData/web3.min.js"></script>
-  <script src="TemplateData/web3Connect.js"></script>
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  <script type="text/javascript" src="env.js"></script>
+  <script type="text/javascript" src="web3.min.js"></script>
+  <script src='https://cdn.jsdelivr.net/npm/bignumber.js@9.0.2/bignumber.min.js'></script>
+  <script type="text/javascript" src="abiMland.js"></script>
+  <script type="text/javascript" src="abiDigger.js"></script>
+  <script type="text/javascript" src="helper.js"></script>
+  <script type="text/javascript" src="helper-digger.js"></script>
+  <script type="text/javascript" src="info-server.js"></script>
 </body>
 
 </html>

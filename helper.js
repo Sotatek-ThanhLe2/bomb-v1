@@ -29,7 +29,7 @@ function formatBalance(balance) {
 }
 
 function formatAddress(wallet) {
-  return String(wallet).slice(0, 4) + '...' + String(wallet).slice(-4);
+  return String(wallet).slice(0, 5) + '...' + String(wallet).slice(-5);
 }
 
 function checkEnoughBalance(amountCompare) {
@@ -40,6 +40,8 @@ function checkEnoughBalance(amountCompare) {
   return false;
 }
 
+/// main
+
 window.web3gl = { ...DEFAULT_WEB3GL };
 
 window.ethereum.on('accountsChanged', async function (accounts) {
@@ -49,6 +51,9 @@ window.ethereum.on('accountsChanged', async function (accounts) {
   await window.web3gl.connect();
   window.web3gl.getWeb3Gl();
 });
+document.getElementById('wallet-address').innerHTML = 'Connect wallet';
+document.getElementById('wallet-mland-token').innerHTML =
+  window.web3gl.balanceOfMland;
 
 async function connect() {
   if (!window.ethereum) {
@@ -67,10 +72,11 @@ async function connect() {
   const acc = await window.ethereum.request({
     method: 'eth_requestAccounts',
   });
-  // document.getElementById('wallet-address').innerHTML = formatAddress(acc[0]);
-  const signature = await web3.eth.personal.sign(MESSAGE_SIGN, acc[0]);
+  document.getElementById('wallet-address').innerHTML = formatAddress(acc[0]);
+  const signature = await window.web3gl.signMessage(MESSAGE_SIGN);
   window.web3gl.address = acc[0];
   window.web3gl.signature = signature;
+  await getBalanceOfMland(acc[0]);
 }
 
 async function disconnect() {
@@ -97,15 +103,15 @@ async function getInfoToken() {
   window.web3gl.symbol = symbol;
 }
 
-async function getBalanceOfMland() {
+async function getBalanceOfMland(address) {
   if (!window.web3gl.address) {
     alert('connect metamask ...');
     return;
   }
-
-  const rs = await contract.methods.balanceOf(window.web3gl.address).call();
+  const rs = await contract.methods.balanceOf(address).call();
   const balanceOfMland = web3.utils.fromWei(rs);
   window.web3gl.balanceOfMland = balanceOfMland;
+  document.getElementById('wallet-mland-token').innerHTML = balanceOfMland;
 }
 /*
 paste this in inspector to connect to sign message:
