@@ -41,15 +41,22 @@ function checkEnoughBalance(amountCompare) {
 }
 
 /// main
+function resetData() {
+  document.getElementById('wallet-address').innerHTML = 'Connect wallet';
+  document.getElementById('wallet-mland-token').innerHTML =
+    window.web3gl.balanceOfMland;
+}
 
 window.web3gl = { ...DEFAULT_WEB3GL };
 
 window.ethereum.on('accountsChanged', async function (accounts) {
-  // Time to reload your interface with accounts[0]!
-  console.log(accounts, 'accounts');
-  await window.web3gl.disconnect();
-  await window.web3gl.connect();
-  window.web3gl.getWeb3Gl();
+  // Time to reload your interface with accounts[0]! when user click button lock on metamask extention
+  if (!accounts[0]) {
+    alert('logout');
+    return;
+  }
+  window.web3gl.disconnect();
+  resetData();
 });
 document.getElementById('wallet-address').innerHTML = 'Connect wallet';
 document.getElementById('wallet-mland-token').innerHTML =
@@ -72,14 +79,12 @@ async function connect() {
   const acc = await window.ethereum.request({
     method: 'eth_requestAccounts',
   });
-  document.getElementById('wallet-address').innerHTML = formatAddress(acc[0]);
-  const signature = await window.web3gl.signMessage(MESSAGE_SIGN);
   window.web3gl.address = acc[0];
-  window.web3gl.signature = signature;
-  await getBalanceOfMland(acc[0]);
+  await getBalanceOfMland();
+  document.getElementById('wallet-address').innerHTML = formatAddress(acc[0]);
 }
 
-async function disconnect() {
+function disconnect() {
   window.web3gl = DEFAULT_WEB3GL;
 }
 
@@ -103,12 +108,12 @@ async function getInfoToken() {
   window.web3gl.symbol = symbol;
 }
 
-async function getBalanceOfMland(address) {
+async function getBalanceOfMland() {
   if (!window.web3gl.address) {
     alert('connect metamask ...');
     return;
   }
-  const rs = await contract.methods.balanceOf(address).call();
+  const rs = await contract.methods.balanceOf(window.web3gl.address).call();
   const balanceOfMland = web3.utils.fromWei(rs);
   window.web3gl.balanceOfMland = balanceOfMland;
   document.getElementById('wallet-mland-token').innerHTML = balanceOfMland;

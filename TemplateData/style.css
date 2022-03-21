@@ -56,8 +56,8 @@ body {
 }
 #unity-fullscreen-button {
   float: right;
-  width: 28px;
-  height: 28px;
+  width: 20px;
+  height: 20px;
   background: url('fullscreen.png') no-repeat center;
 }
 #unity-warning {
@@ -68,4 +68,21 @@ body {
   background: white;
   padding: 10px;
   display: none;
+}
+
+.unity-canvas-game {
+  position: relative;
+  width: 1024px;
+  height: 600px;
+}
+
+.button-full {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  z-index: 10000000000000;
+  color: white;
+}
+.button-full:hover {
+  cursor: pointer;
 }

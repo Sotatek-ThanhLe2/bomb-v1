@@ -37,25 +37,22 @@
   </div>
 
   <div id="unity-container" class="unity-desktop flex flex-col items-center mt-20">
-    <canvas id="unity-canvas" width=1024 height=600></canvas>
+    <div class="unity-canvas-game">
+      <canvas id="unity-canvas" width=1024 height=600>
+      </canvas>
+      <span class="button-full" id="unity-fullscreen-button" />
+    </div>
     <div id="unity-loading-bar">
       <div id="unity-logo"></div>
       <div id="unity-progress-bar-empty">
         <div id="unity-progress-bar-full"></div>
       </div>
     </div>
-    <div id="unity-footer" class="flex justify-around w-full mt-4">
-      <div id="unity-webgl-logo"></div>
-      <div>
-        <div id="unity-fullscreen-button">
-        </div>
-        <div id="unity-build-title" class="text-24-32 font-bold align-center">Minera Land</div>
-      </div>
-    </div>
+    <!-- <div id="unity-fullscreen-button" /> -->
   </div>
 
   <div class="flex justify-center items-center">
-    <div class="text-20-28 text-white bg-[#07EF9C] px-28 py-5 rounded-[0.5rem]">
+    <div class="text-20-28 text-white bg-[#07EF9C] px-28 py-5 rounded-[0.5rem] mt-5">
       SEVER ONLINE
     </div>
   </div>
