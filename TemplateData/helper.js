@@ -89,7 +89,7 @@ async function connect() {
     method: 'eth_requestAccounts',
   });
   window.web3gl.address = acc[0]?.toLowerCase();
-  await window.web3gl.signMessage(acc[0]);
+  await window.web3gl.signMessage();
   await getBalanceOfMland();
   document.getElementById('wallet-address').innerHTML = formatAddress(acc[0]);
 }
@@ -142,7 +142,7 @@ async function signMessage() {
       MESSAGE_SIGN + window.web3gl.address,
       window.web3gl.address
     );
-    window.web3gl.signMessageResponse = signature;
+    window.web3gl.signature = signature;
     console.log(signature, 'signature');
   } catch (error) {
     window.web3gl.signMessageResponse = error.message;
