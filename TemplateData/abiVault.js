@@ -1,4 +1,4 @@
-const abiDigger = [
+const abiVault = [
   {
     inputs: [
       { internalType: 'address', name: 'initialLogic', type: 'address' },
