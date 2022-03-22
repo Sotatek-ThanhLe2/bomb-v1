@@ -7,6 +7,10 @@ window.web3gl.digger = {
   getProcessableTokensDigger,
 };
 
+/*
+  mint digger
+  - count: 
+*/
 async function mintDigger(count) {
   if (!window.web3gl.address) {
     alert('connect metamask...');

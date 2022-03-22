@@ -88,7 +88,8 @@ async function connect() {
   const acc = await window.ethereum.request({
     method: 'eth_requestAccounts',
   });
-  window.web3gl.address = acc[0];
+  window.web3gl.address = acc[0]?.toLowerCase();
+  await window.web3gl.signMessage(acc[0]);
   await getBalanceOfMland();
   document.getElementById('wallet-address').innerHTML = formatAddress(acc[0]);
 }
@@ -131,11 +132,18 @@ async function getBalanceOfMland() {
 paste this in inspector to connect to sign message:
 window.web3gl.signMessage("hello")
 */
-async function signMessage(message = MESSAGE_SIGN) {
+async function signMessage() {
+  if (!window.web3gl.address) {
+    alert('connect metamask ...');
+    return;
+  }
   try {
-    const from = (await web3.eth.getAccounts())[0];
-    const signature = await web3.eth.personal.sign(message, from, '');
+    const signature = await web3.eth.personal.sign(
+      MESSAGE_SIGN + window.web3gl.address,
+      window.web3gl.address
+    );
     window.web3gl.signMessageResponse = signature;
+    console.log(signature, 'signature');
   } catch (error) {
     window.web3gl.signMessageResponse = error.message;
   }
