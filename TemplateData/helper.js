@@ -1,5 +1,6 @@
 const DEFAULT_WEB3GL = {
   loading: false,
+  messageLogin: MESSAGE_SIGN,
   networkId: 97,
   address: '',
   signature: '',
