@@ -1,24 +1,52 @@
 const diggerContract = new web3.eth.Contract(abiDigger, DIGGER_CONTRACT);
 
 window.web3gl.digger = {
-  diggerMint,
-  diggerGetClaimableTokens,
-  diggerGetProcessableTokens,
+  mintDigger,
+  upgradeDigger,
+  getClaimableTokensDigger,
+  getProcessableTokensDigger,
 };
 
-async function diggerMint(count) {
+async function mintDigger(count) {
+  if (!window.web3gl.address) {
+    alert('connect metamask...');
+    return;
+  }
   try {
-    await diggerContract.methods.mint(count).call();
+    activeLoading();
+    await diggerContract.methods.mint(count).send({
+      from: window.web3gl.address,
+    });
+    deactiveLoading();
+    console.log('ok');
   } catch (error) {
     console.log(error, 'err');
   }
 }
 
-async function diggerGetClaimableTokens(address) {
-  await diggerContract.methods.getClaimableTokens(address).call();
+async function upgradeDigger(diggerId, commonDiggerId) {
+  activeLoading();
+  try {
+    await diggerContract.methods.upgrade(diggerId, commonDiggerId).send({
+      from: window.web3gl.address,
+    });
+  } catch (error) {
+    console.log('error', error);
+  }
+  deactiveLoading();
 }
 
-async function diggerGetProcessableTokens(address) {
+async function getClaimableTokensDigger(address) {
+  activeLoading();
+  try {
+    await diggerContract.methods.getClaimableTokens(address).call();
+  } catch (error) {
+    console.log('error', error);
+  }
+  deactiveLoading();
+}
+
+async function getProcessableTokensDigger(address) {
   try {
     const rs = await diggerContract.methods
       .getProcessableTokens(address)
@@ -26,6 +54,6 @@ async function diggerGetProcessableTokens(address) {
     console.log(rs, 'rs');
     return rs;
   } catch (error) {
-    console.log('loi');
+    console.log(error, 'err');
   }
 }

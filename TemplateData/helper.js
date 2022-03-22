@@ -1,5 +1,6 @@
 const DEFAULT_WEB3GL = {
-  networkId: CHAIN_ID_POLYGON_TESTNET,
+  loading: false,
+  networkId: 97,
   address: '',
   signature: '',
   symbol: '',
@@ -20,6 +21,14 @@ const DEFAULT_WEB3GL = {
   sendContract,
   sendContractResponse: '',
 };
+
+function activeLoading() {
+  return (window.web3gl.loading = true);
+}
+
+function deactiveLoading() {
+  return (window.web3gl.loading = false);
+}
 
 const web3 = new Web3(window.ethereum);
 const contract = new web3.eth.Contract(abiMland, MLAND_TOKEN);
@@ -68,11 +77,11 @@ async function connect() {
     return;
   }
   const chainId = await web3.eth.getChainId();
-  if (chainId !== CHAIN_ID_POLYGON_TESTNET) {
+  if (chainId !== CHAIN_ID_BSC_TESTNET) {
     alert('wrong network');
     await window.ethereum.request({
       method: 'wallet_switchEthereumChain',
-      params: [{ chainId: web3.utils.toHex(CHAIN_ID_POLYGON_TESTNET) }],
+      params: [{ chainId: web3.utils.toHex(97) }],
     });
   }
 
