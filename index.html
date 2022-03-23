@@ -15,13 +15,18 @@
 </head>
 
 <body class="bg-bg1 bg-no-repeat bg-cover">
+  <div>
+    <button onclick="window.web3gl.digger.mintDigger(1)">Digger Mint</button>
+    <button onclick="window.web3gl.getBlockNumber()">get block</button>
+  </div>
   <div class="flex justify-between items-center px-8 mt-7">
     <div class="flex items-center">
-      <object class="cursor-pointer mr-10" data="img/logo.svg" type="image/svg+xml"></object>
-      <object class="cursor-pointer mr-10" data="img/home-btn.svg" type="image/svg+xml"></object>
+      <img src="/img/logo.png" alt="">
+      <!-- <object class="cursor-pointer mr-10" data="img/logo.svg" type="image/svg+xml"></object> -->
+      <!-- <object class="cursor-pointer mr-10" data="img/home-btn.svg" type="image/svg+xml"></object>
       <object class="cursor-pointer mr-10" data="img/marketplace-btn.svg" type="image/svg+xml"></object>
       <object class="cursor-pointer mr-10" data="img/learn-btn.svg" type="image/svg+xml"></object>
-      <object class="cursor-pointer mr-10" data="img/arcade-btn.svg" type="image/svg+xml"></object>
+      <object class="cursor-pointer mr-10" data="img/arcade-btn.svg" type="image/svg+xml"></object> -->
     </div>
     <div class="flex items-center">
       <!--				token-->
@@ -55,7 +60,6 @@
     <div class="text-20-28 text-white bg-[#07EF9C] px-28 py-5 rounded-[0.5rem] mt-5">
       SEVER ONLINE
     </div>
-    <button onclick="window.web3gl.digger.mintDigger(2)">Digger Mint</button>
   </div>
 
   <div class="flex justify-center mt-20 px-20">
@@ -159,6 +163,7 @@
   <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
   <script src='https://cdn.jsdelivr.net/npm/bignumber.js@9.0.2/bignumber.min.js'></script>
   <script type="text/javascript" src="TemplateData/env.js"></script>
+  <script type="text/javascript" src="TemplateData/error-const.js"></script>
   <script type="text/javascript" src="TemplateData/abiMland.js"></script>
   <script type="text/javascript" src="TemplateData/abiDigger.js"></script>
   <script type="text/javascript" src="TemplateData/abiHouse.js"></script>
