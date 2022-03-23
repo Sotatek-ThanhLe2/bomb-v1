@@ -5,7 +5,7 @@ window.web3gl.vault = {
 };
 
 async function claimToken(user, amount, nonce, signature) {
-  window.web3gl.checkAddressMetamask();
+  if (!window.web3gl.checkAddressMetamask()) return;
   try {
     activeLoading();
     await vaultContract.methodds

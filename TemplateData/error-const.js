@@ -1,12 +1,28 @@
 const ERROR_CODE = {
-  // error blockchain
   SOME_THING_WENT_WRONG: {
-    code: 'BLC_0001',
+    code: 'NO_CODE_0001',
     message: 'Some thing went wrong.',
   },
+
+  // Mland token
+
+  INSUFFICIENT_BALANCE: {
+    code: 'MLAND_0001',
+    message: 'Insufficient token.',
+  },
+
+  // error blockchain
   JSON_RPC: {
-    code: 'BLC_0002',
+    code: 'BLC_0001',
     message: 'JSON RPC has been error',
+  },
+  INSTALL_METAMASK: {
+    code: 'BLC_0002',
+    message: 'You must install metamask extention.',
+  },
+  WRONG_NETWORK: {
+    code: 'BLC_0002',
+    message: 'Wrong network. Please change network.',
   },
 
   // error metamask
