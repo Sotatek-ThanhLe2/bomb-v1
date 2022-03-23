@@ -13,15 +13,14 @@ window.web3gl.digger = {
   - count: 
 */
 async function mintDigger(count) {
-  window.web3gl.checkAddressMetamask();
+  if (!window.web3gl.checkAddressMetamask()) return;
+
   if (count <= 0) {
-    window.web3gl.errorCode = ERROR_CODE.MINT_DIGGER_NOT_NEGATIVE.code;
-    window.web3gl.errorMessage = ERROR_CODE.MINT_DIGGER_NOT_NEGATIVE.message;
+    setError(ERROR_CODE.MINT_DIGGER_NOT_NEGATIVE);
     return;
   }
   if (count >= MAX_DIGGER_MINT) {
-    window.web3gl.errorCode = ERROR_CODE.MINT_DIGGER_MINT_LIMIT.code;
-    window.web3gl.errorMessage = ERROR_CODE.MINT_DIGGER_MINT_LIMIT.message;
+    setError(ERROR_CODE.MINT_DIGGER_MINT_LIMIT);
     return;
   }
   try {
@@ -36,7 +35,7 @@ async function mintDigger(count) {
 }
 
 async function upgradeDigger(diggerId, commonDiggerId) {
-  window.web3gl.checkAddressMetamask();
+  if (!window.web3gl.checkAddressMetamask()) return;
   activeLoading();
   try {
     await diggerContract.methods.upgrade(diggerId, commonDiggerId).send({
@@ -49,7 +48,7 @@ async function upgradeDigger(diggerId, commonDiggerId) {
 }
 
 async function getClaimableTokensDigger(address) {
-  window.web3gl.checkAddressMetamask();
+  if (!window.web3gl.checkAddressMetamask()) return;
   activeLoading();
   try {
     await diggerContract.methods.getClaimableTokens(address).call();
@@ -60,7 +59,7 @@ async function getClaimableTokensDigger(address) {
 }
 
 async function getProcessableTokensDigger() {
-  window.web3gl.checkAddressMetamask();
+  if (!window.web3gl.checkAddressMetamask()) return;
   try {
     const rs = await diggerContract.methods
       .getProcessableTokens(window.web3gl.address)
@@ -73,7 +72,7 @@ async function getProcessableTokensDigger() {
 }
 
 async function processTokenRequestsDigger() {
-  window.web3gl.checkAddressMetamask();
+  if (!window.web3gl.checkAddressMetamask()) return;
   try {
     await diggerContract.methods.processTokenRequests().send({
       from: window.web3gl.address,
