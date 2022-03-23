@@ -8,6 +8,7 @@ const DEFAULT_WEB3GL = {
   name: '',
   balanceNativeCoin: '0',
   balanceOfMland: '0',
+  checkAddressMetamask,
   connect,
   disconnect,
   getBalanceNativeCoin,
@@ -21,8 +22,14 @@ const DEFAULT_WEB3GL = {
   sendTransactionResponse: '',
   sendContract,
   sendContractResponse: '',
+  errorMessage: '',
+  errorCode: '',
 };
+const web3 = new Web3(window.ethereum);
+const contract = new web3.eth.Contract(abiMland, MLAND_TOKEN);
+window.web3gl = { ...DEFAULT_WEB3GL };
 
+// handle loading
 function activeLoading() {
   return (window.web3gl.loading = true);
 }
@@ -30,9 +37,6 @@ function activeLoading() {
 function deactiveLoading() {
   return (window.web3gl.loading = false);
 }
-
-const web3 = new Web3(window.ethereum);
-const contract = new web3.eth.Contract(abiMland, MLAND_TOKEN);
 
 function formatBalance(balance) {
   return new BigNumber(balance).div(10 ** 18).toString();
@@ -50,14 +54,27 @@ function checkEnoughBalance(amountCompare) {
   return false;
 }
 
+function checkAddressMetamask(address = window.web3gl.address) {
+  if (!address || typeof address !== 'string') {
+    alert('err');
+    window.web3gl.errorCode = ERROR_CODE.METAMASK_NOT_CONNECT.code;
+    window.web3gl.errorMessage = ERROR_CODE.METAMASK_NOT_CONNECT.message;
+  }
+
+  if (address && !address.includes('0x')) {
+    alert('err');
+    window.web3gl.errorCode = ERROR_CODE.METAMASK_NOT_CONNECT.code;
+    window.web3gl.errorMessage = ERROR_CODE.METAMASK_NOT_CONNECT.message;
+  }
+  return;
+}
+
 /// main
 function resetData() {
   document.getElementById('wallet-address').innerHTML = 'Connect wallet';
   document.getElementById('wallet-mland-token').innerHTML =
     window.web3gl.balanceOfMland;
 }
-
-window.web3gl = { ...DEFAULT_WEB3GL };
 
 window.ethereum.on('accountsChanged', async function (accounts) {
   // Time to reload your interface with accounts[0]! when user click button lock on metamask extention
@@ -73,10 +90,6 @@ document.getElementById('wallet-mland-token').innerHTML =
   window.web3gl.balanceOfMland;
 
 async function connect() {
-  if (!window.ethereum) {
-    alert('install metamask');
-    return;
-  }
   const chainId = await web3.eth.getChainId();
   if (chainId !== CHAIN_ID_BSC_TESTNET) {
     alert('wrong network');
@@ -92,6 +105,14 @@ async function connect() {
   window.web3gl.address = acc[0]?.toLowerCase();
   await window.web3gl.signMessage();
   await getBalanceOfMland();
+  console.log(
+    'form',
+    JSON.stringify({
+      address: window.web3gl.address,
+      signature: window.web3gl.signature,
+      message: MESSAGE_SIGN + window.web3gl.address,
+    })
+  );
   document.getElementById('wallet-address').innerHTML = formatAddress(acc[0]);
 }
 
@@ -100,19 +121,13 @@ function disconnect() {
 }
 
 async function getBalanceNativeCoin() {
-  if (!window.web3gl.address) {
-    alert('connect metamask ...');
-    return;
-  }
+  window.web3gl.checkAddressMetamask();
   const balance = await web3.eth.getBalance(window.web3gl.address);
   window.web3gl.balanceNativeCoin = formatBalance(balance);
 }
 
 async function getInfoToken() {
-  if (!window.web3gl.address) {
-    alert('connect metamask ...');
-    return;
-  }
+  window.web3gl.checkAddressMetamask();
   const name = await contract.methods.name().call();
   const symbol = await contract.methods.symbol().call();
   window.web3gl.name = name;
@@ -120,10 +135,7 @@ async function getInfoToken() {
 }
 
 async function getBalanceOfMland() {
-  if (!window.web3gl.address) {
-    alert('connect metamask ...');
-    return;
-  }
+  window.web3gl.checkAddressMetamask();
   const rs = await contract.methods.balanceOf(window.web3gl.address).call();
   const balanceOfMland = web3.utils.fromWei(rs);
   window.web3gl.balanceOfMland = balanceOfMland;
@@ -134,10 +146,7 @@ paste this in inspector to connect to sign message:
 window.web3gl.signMessage("hello")
 */
 async function signMessage() {
-  if (!window.web3gl.address) {
-    alert('connect metamask ...');
-    return;
-  }
+  window.web3gl.checkAddressMetamask();
   try {
     const signature = await web3.eth.personal.sign(
       MESSAGE_SIGN + window.web3gl.address,
@@ -159,6 +168,7 @@ const gasPrice = "33333333333"
 window.web3gl.sendTransaction(to, value, gasLimit, gasPrice);
 */
 async function sendTransaction(to, value, gasLimit, gasPrice) {
+  window.web3gl.checkAddressMetamask();
   const from = (await web3.eth.getAccounts())[0];
   web3.eth
     .sendTransaction({
