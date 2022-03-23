@@ -14,15 +14,22 @@ window.web3gl.digger = {
 */
 async function mintDigger(count) {
   window.web3gl.checkAddressMetamask();
+  if (count <= 0) {
+    window.web3gl.errorCode = ERROR_CODE.MINT_DIGGER_NOT_NEGATIVE.code;
+    window.web3gl.errorMessage = ERROR_CODE.MINT_DIGGER_NOT_NEGATIVE.message;
+    return;
+  }
+  if (count >= MAX_DIGGER_MINT) {
+    window.web3gl.errorCode = ERROR_CODE.MINT_DIGGER_MINT_LIMIT.code;
+    window.web3gl.errorMessage = ERROR_CODE.MINT_DIGGER_MINT_LIMIT.message;
+    return;
+  }
   try {
     activeLoading();
     await diggerContract.methods.mint(count).send({
       from: window.web3gl.address,
     });
-    await getProcessableTokensDigger();
-    await processTokenRequestsDigger();
     deactiveLoading();
-    console.log('ok');
   } catch (error) {
     console.log(error, 'err');
   }

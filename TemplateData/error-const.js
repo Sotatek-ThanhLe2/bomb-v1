@@ -18,4 +18,15 @@ const ERROR_CODE = {
     code: 'WALLET_0002',
     message: 'Your wallet address does not exist.',
   },
+
+  // digger
+  MINT_DIGGER_NOT_NEGATIVE: {
+    code: 'DIGGER_0001',
+    message: 'Number of diggers can not be negative.',
+  },
+
+  MINT_DIGGER_MINT_LIMIT: {
+    code: 'DIGGER_0002',
+    message: 'Number of diggers must be greater than 10.',
+  },
 };

@@ -6,11 +6,13 @@ const DEFAULT_WEB3GL = {
   signature: '',
   symbol: '',
   name: '',
+  blockNumber: 0,
   balanceNativeCoin: '0',
   balanceOfMland: '0',
   checkAddressMetamask,
   connect,
   disconnect,
+  getBlockNumber,
   getBalanceNativeCoin,
   getBalanceOfMland,
   checkEnoughBalance,
@@ -117,7 +119,15 @@ async function connect() {
 }
 
 function disconnect() {
-  window.web3gl = DEFAULT_WEB3GL;
+  window.web3gl = {
+    ...window.web3gl,
+    ...DEFAULT_WEB3GL,
+  };
+}
+
+async function getBlockNumber() {
+  const rs = await web3.eth.getBlockNumber();
+  window.web3gl.blockNumber = rs;
 }
 
 async function getBalanceNativeCoin() {
