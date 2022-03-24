@@ -22,9 +22,19 @@ async function mintDigger(count) {
   }
   activeLoading();
   try {
+    if (!(await window.web3gl.isApproved(DIGGER_CONTRACT))) {
+      const rs = await window.web3gl.approveToken(DIGGER_CONTRACT);
+      if (!rs) {
+        setError(ERROR_CODE.APPROVED_FAILED);
+        return;
+      } else {
+        setSuccess(SUCCESS_CODE.APPROVED_SUCCESS);
+      }
+    }
     await diggerContract.methods.mint(count).send({
       from: window.web3gl.address,
     });
+
     // await processTokenRequestsDigger();
   } catch (error) {
     console.log(error, 'err');
@@ -40,11 +50,9 @@ async function processTokenRequestsDigger() {
       from: window.web3gl.address,
     });
     setSuccess(SUCCESS_CODE.MINT_DIGGER_SUCCESS);
-    // alert(SUCCESS_CODE.MINT_DIGGER_SUCCESS.message);
   } catch (error) {
     console.log(error, 'err');
-    setError(ERROR_CODE.MINT_DIGGER_FAIL);
-    // alert(ERROR_CODE.MINT_DIGGER_FAIL.message);
+    setError(ERROR_CODE.MINT_DIGGER_FAILED);
   }
   deactiveLoading();
 }
@@ -81,7 +89,9 @@ async function upgradeDigger(diggerId, commonDiggerId) {
     await diggerContract.methods.upgrade(diggerId, commonDiggerId).send({
       from: window.web3gl.address,
     });
+    setSuccess(SUCCESS_CODE.UPGRADE_DIGGER_SUCCESS);
   } catch (error) {
+    setError(ERROR_CODE.UPGRADE_DIGGER_FAILED);
     console.log('error', error);
   }
   deactiveLoading();
@@ -92,7 +102,9 @@ async function getClaimableTokensDigger(address) {
   activeLoading();
   try {
     await diggerContract.methods.getClaimableTokens(address).call();
+    setSuccess(SUCCESS_CODE.CLAIMABLE_TOKEN_DIGGER_SUCCESS);
   } catch (error) {
+    setError(ERROR_CODE.CLAIMABLE_TOKEN_DIGGER_FAILED);
     console.log('error', error);
   }
   deactiveLoading();
@@ -105,8 +117,10 @@ async function getProcessableTokensDigger() {
       .getProcessableTokens(window.web3gl.address)
       .call();
     console.log(rs, 'rs');
+    setSuccess(SUCCESS_CODE.PROCESSABLE_TOKEN_DIGGER_SUCCESS);
     return rs;
   } catch (error) {
+    setError(ERROR_CODE.PROCESSABLE_TOKEN_DIGGER_FAILED);
     console.log(error, 'err');
   }
 }
