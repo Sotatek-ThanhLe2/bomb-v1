@@ -6,15 +6,15 @@ window.web3gl.vault = {
 
 async function claimToken(user, amount, nonce, signature) {
   if (!window.web3gl.checkAddressMetamask()) return;
+  activeLoading();
   try {
-    activeLoading();
     await vaultContract.methodds
       .claimToken(user, amount, nonce, signature)
       .send({
         from: window.web3gl.address,
       });
-    deactiveLoading();
   } catch (error) {
     console.log('error: ', error);
   }
+  deactiveLoading();
 }
