@@ -6,12 +6,9 @@ window.web3gl.digger = {
   getClaimableTokensDigger,
   getProcessableTokensDigger,
   processTokenRequestsDigger,
+  rentDigger,
 };
 
-/*
-  mint digger
-  - count: 
-*/
 async function mintDigger(count) {
   if (!window.web3gl.checkAddressMetamask()) return;
 
@@ -23,19 +20,62 @@ async function mintDigger(count) {
     setError(ERROR_CODE.MINT_DIGGER_MINT_LIMIT);
     return;
   }
+  activeLoading();
   try {
-    activeLoading();
     await diggerContract.methods.mint(count).send({
       from: window.web3gl.address,
     });
-    deactiveLoading();
+    // await processTokenRequestsDigger();
   } catch (error) {
     console.log(error, 'err');
   }
+  deactiveLoading();
+}
+
+async function processTokenRequestsDigger() {
+  if (!window.web3gl.checkAddressMetamask()) return;
+  activeLoading();
+  try {
+    await diggerContract.methods.processTokenRequests().send({
+      from: window.web3gl.address,
+    });
+    setSuccess(SUCCESS_CODE.MINT_DIGGER_SUCCESS);
+    // alert(SUCCESS_CODE.MINT_DIGGER_SUCCESS.message);
+  } catch (error) {
+    console.log(error, 'err');
+    setError(ERROR_CODE.MINT_DIGGER_FAIL);
+    // alert(ERROR_CODE.MINT_DIGGER_FAIL.message);
+  }
+  deactiveLoading();
+}
+
+async function rentDigger(diggerId) {
+  if (!window.web3gl.checkAddressMetamask()) return;
+  if (!diggerId || !commonDiggerId) {
+    setError(ERROR_CODE.DIGGIER_INVALID);
+    return;
+  }
+  activeLoading();
+  try {
+    await diggerContract.methods.rent(diggerId).send({
+      from: window.web3gl.address,
+    });
+  } catch (error) {
+    console.log('error: ', error);
+  }
+  deactiveLoading();
 }
 
 async function upgradeDigger(diggerId, commonDiggerId) {
   if (!window.web3gl.checkAddressMetamask()) return;
+  if (!diggerId || !commonDiggerId) {
+    setError(ERROR_CODE.DIGGIER_INVALID);
+    return;
+  }
+  if (diggerId == commonDiggerId) {
+    setError(ERROR_CODE.UPGRADE_DIGGIER_NOT_SAME);
+    return;
+  }
   activeLoading();
   try {
     await diggerContract.methods.upgrade(diggerId, commonDiggerId).send({
@@ -66,17 +106,6 @@ async function getProcessableTokensDigger() {
       .call();
     console.log(rs, 'rs');
     return rs;
-  } catch (error) {
-    console.log(error, 'err');
-  }
-}
-
-async function processTokenRequestsDigger() {
-  if (!window.web3gl.checkAddressMetamask()) return;
-  try {
-    await diggerContract.methods.processTokenRequests().send({
-      from: window.web3gl.address,
-    });
   } catch (error) {
     console.log(error, 'err');
   }

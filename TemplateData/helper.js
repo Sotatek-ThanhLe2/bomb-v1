@@ -25,6 +25,8 @@ const DEFAULT_WEB3GL = {
   signMessageResponse: '',
   errorMessage: '',
   errorCode: '',
+  successCode: '',
+  successMessage: '',
 };
 
 // init web3
@@ -65,9 +67,15 @@ function formatAddress(wallet) {
   return String(wallet).slice(0, 5) + '...' + String(wallet).slice(-5);
 }
 
+// set error, success message
 function setError(errorObject = {}) {
   window.web3gl.errorCode = errorObject.code;
   window.web3gl.errorMessage = errorObject.message;
+}
+
+function setSuccess(successObject = {}) {
+  window.web3gl.successCode = successObject.code;
+  window.web3gl.successMessage = successObject.message;
 }
 
 function checkEnoughBalance(amountCompare = 0) {
@@ -117,6 +125,7 @@ async function connect() {
     setError(ERROR_CODE.INSTALL_METAMASK);
     return;
   }
+  activeLoading();
   const chainId = await web3.eth.getChainId();
   if (chainId !== CHAIN_ID_BSC_TESTNET) {
     setError(ERROR_CODE.WRONG_NETWORK);
@@ -142,6 +151,7 @@ async function connect() {
     })
   );
   setWallet(formatAddress(acc[0]));
+  deactiveLoading();
 }
 
 function disconnect() {
@@ -153,34 +163,43 @@ function disconnect() {
 
 async function getBlockNumber() {
   if (!window.web3gl.checkAddressMetamask()) return;
+  activeLoading();
   const rs = await web3.eth.getBlockNumber();
   window.web3gl.blockNumber = rs;
+  deactiveLoading();
 }
 
 async function getBalanceNativeCoin() {
   if (!window.web3gl.checkAddressMetamask()) return;
+  activeLoading();
   const balance = await web3.eth.getBalance(window.web3gl.address);
   window.web3gl.balanceNativeCoin = formatBalance(balance);
+  deactiveLoading();
 }
 
 async function getInfoToken() {
   if (!window.web3gl.checkAddressMetamask()) return;
+  activeLoading();
   const name = await contract.methods.name().call();
   const symbol = await contract.methods.symbol().call();
   window.web3gl.name = name;
   window.web3gl.symbol = symbol;
+  deactiveLoading();
 }
 
 async function getBalanceOfMland() {
   if (!window.web3gl.checkAddressMetamask()) return;
+  activeLoading();
   const rs = await contract.methods.balanceOf(window.web3gl.address).call();
   const balanceOfMland = web3.utils.fromWei(rs);
   window.web3gl.balanceOfMland = balanceOfMland;
   setBalanceMland(balanceOfMland);
+  deactiveLoading();
 }
 
 async function signMessage() {
   if (!window.web3gl.checkAddressMetamask()) return;
+  activeLoading();
   try {
     const signature = await web3.eth.personal.sign(
       MESSAGE_SIGN + window.web3gl.address,
@@ -190,10 +209,11 @@ async function signMessage() {
   } catch (error) {
     window.web3gl.signMessageResponse = error.message;
   }
+  deactiveLoading();
 }
 
-async function getWeb3Gl() {
+function getWeb3Gl() {
   if (!window.ethereum) return;
-  console.log(window.web3gl, 'wallet');
+
   return window.web3gl;
 }

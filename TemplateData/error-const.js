@@ -45,4 +45,28 @@ const ERROR_CODE = {
     code: 'DIGGER_0002',
     message: 'Number of diggers must be greater than 10.',
   },
+
+  UPGRADE_DIGGIER_NOT_SAME: {
+    code: 'DIGGER_0002',
+    message: 'Digger not same.',
+  },
+
+  DIGGIER_INVALID: {
+    code: 'DIGGER_0004',
+    message: 'Invalid Digger.',
+  },
+
+  MINT_DIGGER_FAIL: {
+    code: 'DIGGER_0001',
+    message: 'Mint digger failed.',
+  },
+};
+
+// success message
+const SUCCESS_CODE = {
+  // digger
+  MINT_DIGGER_SUCCESS: {
+    code: 'DIGGER_0001',
+    message: 'Mint digger successfully.',
+  },
 };
