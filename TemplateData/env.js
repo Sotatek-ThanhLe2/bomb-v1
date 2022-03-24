@@ -7,3 +7,4 @@ const MESSAGE_SIGN = 'Sign this message to login with address ';
 const MLAND_TOKEN = '0xfD6818F207e25a5bE33283C9A7F5ca144101749f';
 const VAULT_CONTRACT = '0x2c1cD699C422f57193aA70E993318DbBc5F43F62';
 const MAX_DIGGER_MINT = 10;
+const UNLIMITED_ALLOWANCE_IN_BASE_UNITS = new BigNumber(2).pow(10).minus(1);
