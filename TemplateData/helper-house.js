@@ -11,6 +11,7 @@ async function mintHouse(rarity) {
   if (!window.web3gl.checkAddressMetamask()) return;
   activeLoading();
   try {
+    console.log('ok');
     if (!(await window.web3gl.isApproved(HOUSE_CONTRACT))) {
       const rs = await approveToken(HOUSE_CONTRACT);
       if (!rs) {
@@ -32,16 +33,22 @@ async function mintHouse(rarity) {
 }
 
 async function widthdrawHouse() {
-  await houseContract.methods.withdraw().call();
+  await houseContract.methods.withdraw().send({
+    from: window.web3gl.address,
+  });
 }
 
 async function burnHouse(ids) {
   if (!Array.isArray(ids) || !ids?.length) return;
-  await houseContract.methods.burn(ids).call();
+  await houseContract.methods.burn(ids).send({
+    from: window.web3gl.address,
+  });
 }
 
-async function getTokenDetailsByOwnerHouse(address) {
-  if (typeof address !== 'string') return;
-  const rs = await houseContract.methods.getTokenDetailsByOwner(address).call();
+async function getTokenDetailsByOwnerHouse() {
+  if (!window.web3gl.checkAddressMetamask()) return;
+  const rs = await houseContract.methods
+    .getTokenDetailsByOwner(window.web3gl.address)
+    .call();
   return rs;
 }
