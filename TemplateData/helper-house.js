@@ -7,6 +7,7 @@ window.web3gl.house = {
   getTokenDetailsByOwnerHouse,
 };
 
+//
 async function mintHouse(rarity) {
   if (!window.web3gl.checkAddressMetamask()) return;
   activeLoading();
@@ -35,6 +36,8 @@ async function mintHouse(rarity) {
 }
 
 async function widthdrawHouse() {
+  if (!window.web3gl.checkAddressMetamask()) return;
+
   await houseContract.methods.withdraw().send({
     from: window.web3gl.address,
   });

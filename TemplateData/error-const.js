@@ -133,6 +133,21 @@ const ERROR_CODE = {
     code: 'ERROR_HOUSE_0001',
     message: 'Mint house failed.',
   },
+
+  WIDTHDRAW_HOUSE_FAILED: {
+    code: 'ERROR_HOUSE_0002',
+    message: 'Mint house failed.',
+  },
+
+  BURN_HOUSE_FAILED: {
+    code: 'ERROR_HOUSE_0002',
+    message: 'Burn house failed.',
+  },
+
+  GET_TOKEN_DETAIL_BY_OWNER_HOUSE_FAILED: {
+    code: 'ERROR_HOUSE_0003',
+    message: 'Get token detail by owner house failed.',
+  },
 };
 
 // success message
@@ -218,6 +233,21 @@ const SUCCESS_CODE = {
   MINT_HOUSE_SUCCESS: {
     code: 'SUCCESS_HOUSE_0001',
     message: 'Mint house successfully.',
+  },
+
+  WIDTHDRAW_HOUSE_SUCCESS: {
+    code: 'SUCCESS_HOUSE_0002',
+    message: 'Mint house successfully.',
+  },
+
+  BURN_HOUSE_SUCCESS: {
+    code: 'SUCCESS_HOUSE_0002',
+    message: 'Burn house successfully.',
+  },
+
+  GET_TOKEN_DETAIL_BY_OWNER_HOUSE_SUCCESS: {
+    code: 'SUCCESS_HOUSE_0003',
+    message: 'Get token detail by owner house successfully.',
   },
 };
 
