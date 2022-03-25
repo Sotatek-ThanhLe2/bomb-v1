@@ -125,6 +125,12 @@ const ERROR_CODE = {
     code: 'ERROR_DIGGER_0011',
     message: 'Rent digger failed.',
   },
+
+  // house
+  MINT_HOUSE_FAILED: {
+    code: 'ERROR_HOUSE_0011',
+    message: 'Mint house failed.',
+  },
 };
 
 // success message
@@ -197,12 +203,18 @@ const SUCCESS_CODE = {
   },
 
   ACTION_MINT_DIGGER_SUCCESS: {
-    code: 'SUCCESS_DIGGER_0005',
+    code: 'SUCCESS_DIGGER_0006',
     message: 'Action mint digger successfully.',
   },
 
   RENT_DIGGER_SUCCESS: {
-    code: 'SUCCESS_DIGGER_0006',
+    code: 'SUCCESS_DIGGER_0007',
     message: 'Rent digger successfully.',
+  },
+
+  // house
+  MINT_HOUSE_SUCCESS: {
+    code: 'SUCCESS_HOUSE_0001',
+    message: 'Mint house successfully.',
   },
 };

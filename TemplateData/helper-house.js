@@ -26,7 +26,9 @@ async function mintHouse(rarity) {
     await houseContract.methods.mint(rarity).send({
       from: window.web3gl.address,
     });
+    setSuccess(SUCCESS_CODE.MINT_HOUSE_SUCCESS);
   } catch (error) {
+    setError(ERROR_CODE.MINT_HOUSE_FAILED);
     console.log('error: ', error);
   }
   deactiveLoading();
