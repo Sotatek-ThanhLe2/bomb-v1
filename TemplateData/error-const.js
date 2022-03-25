@@ -20,10 +20,6 @@ const ERROR_CODE = {
     code: 'ERROR_BLC_0002',
     message: 'You must install metamask extention.',
   },
-  WRONG_NETWORK: {
-    code: 'ERROR_BLC_0002',
-    message: 'Wrong network. Please change network.',
-  },
 
   APPROVED_FAILED: {
     code: 'ERROR_BLC_0003',
@@ -51,6 +47,7 @@ const ERROR_CODE = {
   },
 
   // error metamask
+
   METAMASK_NOT_CONNECT: {
     code: 'ERROR_WALLET_0001',
     message: 'You must connect metamask wallet.',
@@ -68,6 +65,11 @@ const ERROR_CODE = {
   METAMASK_SIGN_FAILED: {
     code: 'ERROR_WALLET_0004',
     message: 'Metamask sign failed.',
+  },
+
+  WRONG_NETWORK: {
+    code: 'ERROR_WALLET_0005',
+    message: 'Wrong network. Please change network.',
   },
 
   // digger
@@ -128,7 +130,7 @@ const ERROR_CODE = {
 
   // house
   MINT_HOUSE_FAILED: {
-    code: 'ERROR_HOUSE_0011',
+    code: 'ERROR_HOUSE_0001',
     message: 'Mint house failed.',
   },
 };
@@ -218,3 +220,14 @@ const SUCCESS_CODE = {
     message: 'Mint house successfully.',
   },
 };
+
+function checkSameCode(o) {
+  const arr = Object.keys(o);
+  const newArr = [...new Set(arr.map((i) => o[`${i}`].code))];
+  const newArr1 = arr.map((i) => o[`${i}`].code);
+  console.log(arr.length, 'key');
+  console.log(arr, 'code');
+  console.log(newArr, 'code');
+}
+checkSameCode(ERROR_CODE);
+checkSameCode(SUCCESS_CODE);
