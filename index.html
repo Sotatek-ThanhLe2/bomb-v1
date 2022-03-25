@@ -17,8 +17,9 @@
 <body class="bg-bg1 bg-no-repeat bg-cover">
   <div>
     <button onclick="window.web3gl.digger.mintDigger(1)">Digger Mint</button>
+    <button onclick="window.web3gl.digger.upgradeDigger(1)">Digger Mint</button>
     <button onclick="window.web3gl.getBlockNumber()">get block</button>
-    <button onclick="mintHouse()">mintHouse</button>
+    <button onclick="window.web3gl.house.mintHouse()">mintHouse</button>
   </div>
   <div class="flex justify-between items-center px-8 mt-7">
     <div class="flex items-center">
@@ -44,7 +45,7 @@
 
   <div id="unity-container" class="unity-desktop flex flex-col items-center mt-20">
     <div class="unity-canvas-game">
-      <canvas id="unity-canvas" width=1024 height=600>
+      <!-- <canvas id="unity-canvas" width=1024 height=600> -->
       </canvas>
       <span class="button-full" id="unity-fullscreen-button" />
     </div>

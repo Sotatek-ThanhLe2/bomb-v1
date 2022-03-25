@@ -1,7 +1,7 @@
 const DEFAULT_WEB3GL = {
   loading: false,
   messageLogin: MESSAGE_SIGN,
-  networkId: 97,
+  networkId: CHAIN_ID_TESTNET,
   address: '',
   signature: '',
   symbol: '',
@@ -85,7 +85,13 @@ function setSuccess(successObject = {}) {
 }
 
 function checkEnoughBalance(amountCompare = 0) {
-  if (new BigNumber(window.web3gl.balanceOfMland).minus(amountCompare).gte(0)) {
+  let currentBalance = null;
+  (async () => {
+    const rs = await window.web3gl.getBalanceOfMland();
+    currentBalance = rs;
+  })();
+
+  if (new BigNumber(currentBalance).minus(amountCompare).gte(0)) {
     return true;
   }
   setError(ERROR_CODE.INSUFFICIENT_BALANCE);
@@ -149,11 +155,11 @@ async function connect() {
   activeLoading();
   try {
     const chainId = await web3.eth.getChainId();
-    if (chainId !== CHAIN_ID_BSC_TESTNET) {
+    if (chainId !== CHAIN_ID_TESTNET) {
       setError(ERROR_CODE.WRONG_NETWORK);
       await window.ethereum.request({
         method: 'wallet_switchEthereumChain',
-        params: [{ chainId: web3.utils.toHex(97) }],
+        params: [{ chainId: web3.utils.toHex(CHAIN_ID_TESTNET) }],
       });
     }
 
@@ -221,6 +227,7 @@ async function getBalanceOfMland() {
   window.web3gl.balanceOfMland = balanceOfMland;
   setBalanceMland(balanceOfMland);
   deactiveLoading();
+  return balanceOfMland;
 }
 
 async function signMessage() {
