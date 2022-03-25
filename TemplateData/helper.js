@@ -7,6 +7,7 @@ const DEFAULT_WEB3GL = {
   symbol: '',
   name: '',
   blockNumber: 0,
+  isEnoughBalance: false,
   balanceNativeCoin: '0',
   balanceOfMland: '0',
   checkAddressMetamask,
@@ -84,20 +85,6 @@ function setSuccess(successObject = {}) {
   window.web3gl.successMessage = successObject.message;
 }
 
-function checkEnoughBalance(amountCompare = 0) {
-  let currentBalance = null;
-  (async () => {
-    const rs = await window.web3gl.getBalanceOfMland();
-    currentBalance = rs;
-  })();
-
-  if (new BigNumber(currentBalance).minus(amountCompare).gte(0)) {
-    return true;
-  }
-  setError(ERROR_CODE.INSUFFICIENT_BALANCE);
-  return false;
-}
-
 function checkAddressMetamask() {
   if (!window.ethereum) {
     setError(ERROR_CODE.INSTALL_METAMASK);
@@ -140,14 +127,30 @@ if (window.ethereum) {
     // Time to reload your interface with accounts[0]! when user click button lock on metamask extention
     if (!accounts[0]) {
       // alert('logout');
-      return;
+      setSuccess(SUCCESS_CODE.LOGOUT_WALLET);
     }
     window.web3gl.disconnect();
     resetData();
   });
 }
 
+async function checkEnoughBalance(amountCompare = 0) {
+  if (!window.web3gl.checkAddressMetamask()) return;
+  activeLoading();
+  try {
+    let currentBalance = await window.web3gl.getBalanceOfMland();
+    if (new BigNumber(currentBalance).minus(amountCompare).gte(0)) {
+      window.web3gl.isEnoughBalance = true;
+    } else {
+      setError(ERROR_CODE.INSUFFICIENT_BALANCE);
+      window.web3gl.isEnoughBalance = false;
+    }
+  } catch (error) {}
+  deactiveLoading();
+}
+
 async function connect() {
+  if (window.web3gl.address) return;
   if (!window.ethereum) {
     setError(ERROR_CODE.INSTALL_METAMASK);
     return;
@@ -194,40 +197,60 @@ function disconnect() {
 async function getBlockNumber() {
   if (!window.web3gl.checkAddressMetamask()) return;
   activeLoading();
-  const rs = await web3.eth.getBlockNumber();
-  window.web3gl.blockNumber = rs;
+  try {
+    const rs = await web3.eth.getBlockNumber();
+    window.web3gl.blockNumber = rs;
+    setSuccess(SUCCESS_CODE.GET_BLOCK_NUMBER_SUCCESS);
+  } catch (error) {
+    setError(ERROR_CODE.GET_BLOCK_NUMBER_FAILED);
+  }
   deactiveLoading();
 }
 
 async function getBalanceNativeCoin() {
   if (!window.web3gl.checkAddressMetamask()) return;
   activeLoading();
-  const balance = await web3.eth.getBalance(window.web3gl.address);
-  window.web3gl.balanceNativeCoin = formatBalance(balance);
+  try {
+    const balance = await web3.eth.getBalance(window.web3gl.address);
+    window.web3gl.balanceNativeCoin = formatBalance(balance);
+    setSuccess(SUCCESS_CODE.GET_BALANCE_NATIVE_COIN_SUCCESS);
+  } catch (error) {
+    setError(ERROR_CODE.GET_BALANCE_NATIVE_COIN_FAILED);
+  }
   deactiveLoading();
 }
 
 async function getInfoToken() {
   if (!window.web3gl.checkAddressMetamask()) return;
   activeLoading();
-  const name = await contractMland.methods.name().call();
-  const symbol = await contractMland.methods.symbol().call();
-  window.web3gl.name = name;
-  window.web3gl.symbol = symbol;
+  try {
+    const name = await contractMland.methods.name().call();
+    const symbol = await contractMland.methods.symbol().call();
+    window.web3gl.name = name;
+    window.web3gl.symbol = symbol;
+    setSuccess(SUCCESS_CODE.GET_INFO_TOKEN_SUCCESS);
+  } catch (error) {
+    setError(ERROR_CODE.GET_INFO_TOKEN_FAILED);
+  }
   deactiveLoading();
 }
 
 async function getBalanceOfMland() {
   if (!window.web3gl.checkAddressMetamask()) return;
   activeLoading();
-  const rs = await contractMland.methods
-    .balanceOf(window.web3gl.address)
-    .call();
-  const balanceOfMland = web3.utils.fromWei(rs);
-  window.web3gl.balanceOfMland = balanceOfMland;
-  setBalanceMland(balanceOfMland);
+  try {
+    const rs = await contractMland.methods
+      .balanceOf(window.web3gl.address)
+      .call();
+    const balanceOfMland = web3.utils.fromWei(rs);
+    window.web3gl.balanceOfMland = balanceOfMland;
+    setBalanceMland(balanceOfMland);
+    setSuccess(SUCCESS_CODE.GET_BALANCE_TOKEN_SUCCESS);
+    return balanceOfMland;
+  } catch (error) {
+    setError(ERROR_CODE.GET_BALANCE_TOKEN_FAILED);
+  }
   deactiveLoading();
-  return balanceOfMland;
 }
 
 async function signMessage() {
@@ -239,7 +262,9 @@ async function signMessage() {
       window.web3gl.address
     );
     window.web3gl.signature = signature;
+    setSuccess(SUCCESS_CODE.METAMASK_SIGN_SUCCESS);
   } catch (error) {
+    setError(ERROR_CODE.METAMASK_SIGN_FAILED);
     window.web3gl.signMessageResponse = error.message;
   }
   deactiveLoading();
@@ -247,7 +272,6 @@ async function signMessage() {
 
 function getWeb3Gl() {
   if (!window.ethereum) return;
-
   return window.web3gl;
 }
 

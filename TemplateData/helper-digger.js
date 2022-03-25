@@ -34,9 +34,10 @@ async function mintDigger(count) {
     await diggerContract.methods.mint(count).send({
       from: window.web3gl.address,
     });
-
+    setSuccess(SUCCESS_CODE.ACTION_MINT_DIGGER_SUCCESS);
     // await processTokenRequestsDigger();
   } catch (error) {
+    setSuccess(ERROR_CODE.ACTION_MINT_DIGGER_FAILED);
     console.log(error, 'err');
   }
   deactiveLoading();
@@ -68,7 +69,9 @@ async function rentDigger(diggerId) {
     await diggerContract.methods.rent(diggerId).send({
       from: window.web3gl.address,
     });
+    setSuccess(SUCCESS_CODE.RENT_DIGGER_SUCCESS);
   } catch (error) {
+    setError(ERROR_CODE.RENT_DIGGER_FAILED);
     console.log('error: ', error);
   }
   deactiveLoading();
