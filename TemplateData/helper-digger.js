@@ -7,9 +7,11 @@ window.web3gl.digger = {
   // getProcessableTokensDigger,
   processTokenRequestsDigger,
   rentDigger,
+  createTokenWithSignature,
 };
 
 async function mintDigger(count) {
+  // error message has been returned in the function checkAddressMetamask
   if (!window.web3gl.checkAddressMetamask()) return;
 
   if (count <= 0) {
@@ -44,6 +46,7 @@ async function mintDigger(count) {
 }
 
 async function processTokenRequestsDigger() {
+  // error message has been returned in the function checkAddressMetamask
   if (!window.web3gl.checkAddressMetamask()) return;
   activeLoading();
   try {
@@ -59,6 +62,7 @@ async function processTokenRequestsDigger() {
 }
 
 async function rentDigger(diggerId) {
+  // error message has been returned in the function checkAddressMetamask
   if (!window.web3gl.checkAddressMetamask()) return;
   if (!diggerId || typeof diggerId !== 'number') {
     setError(ERROR_CODE.DIGGIER_INVALID);
@@ -78,6 +82,7 @@ async function rentDigger(diggerId) {
 }
 
 async function upgradeDigger(diggerId, commonDiggerId) {
+  // error message has been returned in the function checkAddressMetamask
   if (!window.web3gl.checkAddressMetamask()) return;
   if (
     !diggerId ||
@@ -95,10 +100,12 @@ async function upgradeDigger(diggerId, commonDiggerId) {
 
   activeLoading();
   try {
+    console.log(diggerId, commonDiggerId, 'dsadas');
     await diggerContract.methods.upgrade(diggerId, commonDiggerId).send({
       from: window.web3gl.address,
     });
     setSuccess(SUCCESS_CODE.UPGRADE_DIGGER_SUCCESS);
+    console.log('ok');
   } catch (error) {
     setError(ERROR_CODE.UPGRADE_DIGGER_FAILED);
     console.log('error', error);
@@ -107,6 +114,7 @@ async function upgradeDigger(diggerId, commonDiggerId) {
 }
 
 async function getClaimableTokensDigger(address) {
+  // error message has been returned in the function checkAddressMetamask
   if (!window.web3gl.checkAddressMetamask()) return;
   activeLoading();
   try {
@@ -119,7 +127,25 @@ async function getClaimableTokensDigger(address) {
   deactiveLoading();
 }
 
+async function createTokenWithSignature(addressTo, details, nonce, signature) {
+  if (!window.web3gl.checkAddressMetamask()) return;
+  activeLoading();
+  try {
+    await diggerContract.methods
+      .createTokenWithSignature(addressTo, details, nonce, signature)
+      .send({
+        from: window.web3gl.address,
+      });
+    setSuccess(SUCCESS_CODE.CREATE_TOKEN_SIGNATURE_SUCCESS);
+  } catch (error) {
+    setError(ERROR_CODE.CREATE_TOKEN_SIGNATURE_FAILED);
+    console.log('error', error);
+  }
+  deactiveLoading();
+}
+
 // async function getProcessableTokensDigger() {
+// error message has been returned in the function checkAddressMetamask
 //   if (!window.web3gl.checkAddressMetamask()) return;
 //   activeLoading();
 //   try {

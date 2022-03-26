@@ -140,6 +140,7 @@ async function checkEnoughBalance(amountCompare = 0) {
   try {
     let currentBalance = await window.web3gl.getBalanceOfMland();
     if (new BigNumber(currentBalance).minus(amountCompare).gte(0)) {
+      window.web3gl.balanceOfMland = currentBalance;
       window.web3gl.isEnoughBalance = true;
     } else {
       setError(ERROR_CODE.INSUFFICIENT_BALANCE);

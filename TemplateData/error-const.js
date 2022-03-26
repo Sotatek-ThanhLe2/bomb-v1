@@ -128,10 +128,36 @@ const ERROR_CODE = {
     message: 'Rent digger failed.',
   },
 
+  CREATE_TOKEN_SIGNATURE_FAILED: {
+    code: 'ERROR_DIGGER_0012',
+    message: 'Create token with signature digger failed.',
+  },
+
   // house
   MINT_HOUSE_FAILED: {
     code: 'ERROR_HOUSE_0001',
     message: 'Mint house failed.',
+  },
+
+  WIDTHDRAW_HOUSE_FAILED: {
+    code: 'ERROR_HOUSE_0002',
+    message: 'Mint house failed.',
+  },
+
+  BURN_HOUSE_FAILED: {
+    code: 'ERROR_HOUSE_0002',
+    message: 'Burn house failed.',
+  },
+
+  GET_TOKEN_DETAIL_BY_OWNER_HOUSE_FAILED: {
+    code: 'ERROR_HOUSE_0003',
+    message: 'Get token detail by owner house failed.',
+  },
+
+  // vault
+  CLAIM_TOKEN_FAILED: {
+    code: 'ERROR_VAULT_0001',
+    message: 'Claim token failed.',
   },
 };
 
@@ -214,18 +240,46 @@ const SUCCESS_CODE = {
     message: 'Rent digger successfully.',
   },
 
+  CREATE_TOKEN_SIGNATURE_SUCCESS: {
+    code: 'SUCCESS_DIGGER_0008',
+    message: 'Create token with signature digger successfully.',
+  },
+
   // house
   MINT_HOUSE_SUCCESS: {
     code: 'SUCCESS_HOUSE_0001',
     message: 'Mint house successfully.',
+  },
+
+  WIDTHDRAW_HOUSE_SUCCESS: {
+    code: 'SUCCESS_HOUSE_0002',
+    message: 'Mint house successfully.',
+  },
+
+  BURN_HOUSE_SUCCESS: {
+    code: 'SUCCESS_HOUSE_0002',
+    message: 'Burn house successfully.',
+  },
+
+  GET_TOKEN_DETAIL_BY_OWNER_HOUSE_SUCCESS: {
+    code: 'SUCCESS_HOUSE_0003',
+    message: 'Get token detail by owner house successfully.',
+  },
+
+  // vault
+  CLAIM_TOKEN_SUCCESS: {
+    code: 'SUCCESS_VAULT_0001',
+    message: 'Claim token successfully.',
   },
 };
 
 // function checkSameCode(o) {
 //   const arr = Object.keys(o);
 //   const newArr = [...new Set(arr.map((i) => o[`${i}`].code))];
-//   // const newArr1 = arr.map((i) => o[`${i}`].code);
-//   console.log({ key: arr.length, code: newArr.length }, 'check same err code');
+//   const newArr1 = arr.map((i) => o[`${i}`].code);
+//   console.log(arr.length, 'key');
+//   console.log(arr, 'code');
+//   console.log(newArr, 'code');
 // }
 // checkSameCode(ERROR_CODE);
 // checkSameCode(SUCCESS_CODE);

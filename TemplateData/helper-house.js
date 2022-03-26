@@ -7,7 +7,10 @@ window.web3gl.house = {
   getTokenDetailsByOwnerHouse,
 };
 
+//
 async function mintHouse(rarity) {
+  // error message has been returned in the function checkAddressMetamask
+
   if (!window.web3gl.checkAddressMetamask()) return;
   activeLoading();
   try {
@@ -35,6 +38,9 @@ async function mintHouse(rarity) {
 }
 
 async function widthdrawHouse() {
+  // error message has been returned in the function checkAddressMetamask
+  if (!window.web3gl.checkAddressMetamask()) return;
+
   await houseContract.methods.withdraw().send({
     from: window.web3gl.address,
   });
@@ -48,7 +54,9 @@ async function burnHouse(ids) {
 }
 
 async function getTokenDetailsByOwnerHouse() {
+  // error message has been returned in the function checkAddressMetamask
   if (!window.web3gl.checkAddressMetamask()) return;
+
   const rs = await houseContract.methods
     .getTokenDetailsByOwner(window.web3gl.address)
     .call();
