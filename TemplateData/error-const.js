@@ -128,6 +128,11 @@ const ERROR_CODE = {
     message: 'Rent digger failed.',
   },
 
+  CREATE_TOKEN_SIGNATURE_FAILED: {
+    code: 'ERROR_DIGGER_0012',
+    message: 'Create token with signature digger failed.',
+  },
+
   // house
   MINT_HOUSE_FAILED: {
     code: 'ERROR_HOUSE_0001',
@@ -147,6 +152,12 @@ const ERROR_CODE = {
   GET_TOKEN_DETAIL_BY_OWNER_HOUSE_FAILED: {
     code: 'ERROR_HOUSE_0003',
     message: 'Get token detail by owner house failed.',
+  },
+
+  // vault
+  CLAIM_TOKEN_FAILED: {
+    code: 'ERROR_VAULT_0001',
+    message: 'Claim token failed.',
   },
 };
 
@@ -229,6 +240,11 @@ const SUCCESS_CODE = {
     message: 'Rent digger successfully.',
   },
 
+  CREATE_TOKEN_SIGNATURE_SUCCESS: {
+    code: 'SUCCESS_DIGGER_0008',
+    message: 'Create token with signature digger successfully.',
+  },
+
   // house
   MINT_HOUSE_SUCCESS: {
     code: 'SUCCESS_HOUSE_0001',
@@ -248,6 +264,12 @@ const SUCCESS_CODE = {
   GET_TOKEN_DETAIL_BY_OWNER_HOUSE_SUCCESS: {
     code: 'SUCCESS_HOUSE_0003',
     message: 'Get token detail by owner house successfully.',
+  },
+
+  // vault
+  CLAIM_TOKEN_SUCCESS: {
+    code: 'SUCCESS_VAULT_0001',
+    message: 'Claim token successfully.',
   },
 };
 

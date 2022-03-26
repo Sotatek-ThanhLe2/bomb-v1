@@ -7,6 +7,7 @@ window.web3gl.digger = {
   // getProcessableTokensDigger,
   processTokenRequestsDigger,
   rentDigger,
+  createTokenWithSignature,
 };
 
 async function mintDigger(count) {
@@ -99,10 +100,12 @@ async function upgradeDigger(diggerId, commonDiggerId) {
 
   activeLoading();
   try {
+    console.log(diggerId, commonDiggerId, 'dsadas');
     await diggerContract.methods.upgrade(diggerId, commonDiggerId).send({
       from: window.web3gl.address,
     });
     setSuccess(SUCCESS_CODE.UPGRADE_DIGGER_SUCCESS);
+    console.log('ok');
   } catch (error) {
     setError(ERROR_CODE.UPGRADE_DIGGER_FAILED);
     console.log('error', error);
@@ -119,6 +122,23 @@ async function getClaimableTokensDigger(address) {
     setSuccess(SUCCESS_CODE.CLAIMABLE_TOKEN_DIGGER_SUCCESS);
   } catch (error) {
     setError(ERROR_CODE.CLAIMABLE_TOKEN_DIGGER_FAILED);
+    console.log('error', error);
+  }
+  deactiveLoading();
+}
+
+async function createTokenWithSignature(addressTo, details, nonce, signature) {
+  if (!window.web3gl.checkAddressMetamask()) return;
+  activeLoading();
+  try {
+    await diggerContract.methods
+      .createTokenWithSignature(addressTo, details, nonce, signature)
+      .send({
+        from: window.web3gl.address,
+      });
+    setSuccess(SUCCESS_CODE.CREATE_TOKEN_SIGNATURE_SUCCESS);
+  } catch (error) {
+    setError(ERROR_CODE.CREATE_TOKEN_SIGNATURE_FAILED);
     console.log('error', error);
   }
   deactiveLoading();
