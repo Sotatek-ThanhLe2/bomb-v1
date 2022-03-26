@@ -251,13 +251,13 @@ const SUCCESS_CODE = {
   },
 };
 
-function checkSameCode(o) {
-  const arr = Object.keys(o);
-  const newArr = [...new Set(arr.map((i) => o[`${i}`].code))];
-  const newArr1 = arr.map((i) => o[`${i}`].code);
-  console.log(arr.length, 'key');
-  console.log(arr, 'code');
-  console.log(newArr, 'code');
-}
-checkSameCode(ERROR_CODE);
-checkSameCode(SUCCESS_CODE);
+// function checkSameCode(o) {
+//   const arr = Object.keys(o);
+//   const newArr = [...new Set(arr.map((i) => o[`${i}`].code))];
+//   const newArr1 = arr.map((i) => o[`${i}`].code);
+//   console.log(arr.length, 'key');
+//   console.log(arr, 'code');
+//   console.log(newArr, 'code');
+// }
+// checkSameCode(ERROR_CODE);
+// checkSameCode(SUCCESS_CODE);

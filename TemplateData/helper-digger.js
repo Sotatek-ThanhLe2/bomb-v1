@@ -10,6 +10,7 @@ window.web3gl.digger = {
 };
 
 async function mintDigger(count) {
+  // error message has been returned in the function checkAddressMetamask
   if (!window.web3gl.checkAddressMetamask()) return;
 
   if (count <= 0) {
@@ -44,6 +45,7 @@ async function mintDigger(count) {
 }
 
 async function processTokenRequestsDigger() {
+  // error message has been returned in the function checkAddressMetamask
   if (!window.web3gl.checkAddressMetamask()) return;
   activeLoading();
   try {
@@ -59,6 +61,7 @@ async function processTokenRequestsDigger() {
 }
 
 async function rentDigger(diggerId) {
+  // error message has been returned in the function checkAddressMetamask
   if (!window.web3gl.checkAddressMetamask()) return;
   if (!diggerId || typeof diggerId !== 'number') {
     setError(ERROR_CODE.DIGGIER_INVALID);
@@ -78,6 +81,7 @@ async function rentDigger(diggerId) {
 }
 
 async function upgradeDigger(diggerId, commonDiggerId) {
+  // error message has been returned in the function checkAddressMetamask
   if (!window.web3gl.checkAddressMetamask()) return;
   if (
     !diggerId ||
@@ -107,6 +111,7 @@ async function upgradeDigger(diggerId, commonDiggerId) {
 }
 
 async function getClaimableTokensDigger(address) {
+  // error message has been returned in the function checkAddressMetamask
   if (!window.web3gl.checkAddressMetamask()) return;
   activeLoading();
   try {
@@ -120,6 +125,7 @@ async function getClaimableTokensDigger(address) {
 }
 
 // async function getProcessableTokensDigger() {
+// error message has been returned in the function checkAddressMetamask
 //   if (!window.web3gl.checkAddressMetamask()) return;
 //   activeLoading();
 //   try {
