@@ -25,7 +25,10 @@ async function mintHouse(rarity) {
       }
     }
 
-    if (typeof rarity !== 'number') return;
+    if (typeof rarity !== 'number') {
+      setError(ERROR_CODE.MINT_HOUSE_FAILED);
+      return;
+    };
     await houseContract.methods.mint(rarity).send({
       from: window.web3gl.address,
     });
