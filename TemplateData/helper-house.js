@@ -10,8 +10,8 @@ function sumQuantitiesHouse(arr) {
 
 window.web3gl.house = {
   warehouses: [],
-  currentQuantityHouse: 0,
-  totalQuantityHouse: 0,
+  avaiableHouse: 0,
+  totalHouse: 0,
   mintHouse,
   widthdrawHouse,
   burnHouse,
@@ -83,20 +83,22 @@ async function getWarehousesShop() {
 
   activeLoading();
   try {
-    const mintLimits = await houseDesignContract.methods.getMintLimits().call();
-    const mintCosts = await houseDesignContract.methods.getMintCosts().call();
-    const currentQuantityHouse = await houseContract.methods
-      .getMintAvailable()
-      .call();
-    window.web3gl.house.currentQuantityHouse =
-      sumQuantitiesHouse(currentQuantityHouse);
-    window.web3gl.house.totalQuantityHouse = sumQuantitiesHouse(mintLimits);
+    const [mintLimits, mintCosts, avaiableHouse] = await Promise.all([
+      houseDesignContract.methods.getMintLimits().call(),
+      houseDesignContract.methods.getMintCosts().call(),
+      houseContract.methods.getMintAvailable().call(),
+    ]);
+
+    window.web3gl.house.avaiableHouse = sumQuantitiesHouse(avaiableHouse);
+    window.web3gl.house.totalHouse = sumQuantitiesHouse(mintLimits);
 
     window.web3gl.house.warehouses = RARITY_HOUSES.map((house, index) => ({
       ...house,
-      unit: mintLimits[index],
-      price: formatBalance(mintCosts[index]),
+      unit: parseFloat(mintLimits[index]),
+      price: parseFloat(formatBalance(mintCosts[index])),
     }));
+    window.web3gl.house.warehouses.reverse();
+
     setSuccess(SUCCESS_CODE.GET_WAREHOUSE_SHOP_SUCCESS);
   } catch (error) {
     setError(ERROR_CODE.GET_WAREHOUSE_SHOP_FAILED);
