@@ -182,6 +182,7 @@ async function connect() {
       })
     );
     setWallet(formatAddress(acc[0]));
+    setSuccess(SUCCESS_CODE.CONNECT_WALLET_SUCCESS);
   } catch (error) {
     setError(ERROR_CODE.METAMASK_CONNECT_FAILED);
   }

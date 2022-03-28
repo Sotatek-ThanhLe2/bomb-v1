@@ -1,6 +1,14 @@
 const diggerContract = new web3.eth.Contract(abiDigger, DIGGER_CONTRACT);
+const diggerDesignContract = new web3.eth.Contract(
+  abiDesignDigger,
+  DIGGER_DESIGN_CONTRACT
+);
 
 window.web3gl.digger = {
+  diggerPackage1: {},
+  diggerPackage5: {},
+  diggerPackage10: {},
+  getUnitPriceDigger,
   mintDigger,
   upgradeDigger,
   getClaimableTokensDigger,
@@ -161,3 +169,30 @@ async function createTokenWithSignature(addressTo, details, nonce, signature) {
 //   }
 //   deactiveLoading();
 // }
+
+async function getUnitPriceDigger() {
+  // error message has been returned in the function checkAddressMetamask
+  if (!window.web3gl.checkAddressMetamask()) return;
+
+  activeLoading();
+  try {
+    const mintCost = await diggerDesignContract.methods.getMintCost().call();
+    window.web3gl.digger.diggerPackage1 = {
+      unit: 1,
+      price: formatBalance(new BigNumber(mintCost)),
+    };
+    window.web3gl.digger.diggerPackage5 = {
+      unit: 5,
+      price: formatBalance(new BigNumber(mintCost).times(5)),
+    };
+    window.web3gl.digger.diggerPackage10 = {
+      unit: 10,
+      price: formatBalance(new BigNumber(mintCost).times(10)),
+    };
+    setSuccess(SUCCESS_CODE.GET_PRICE_PACKAGE_DIGGER_SUCCESS);
+  } catch (error) {
+    setError(ERROR_CODE.GET_PRICE_PACKAGE_DIGGER_FAILED);
+    console.log('error: ', error);
+  }
+  deactiveLoading();
+}
