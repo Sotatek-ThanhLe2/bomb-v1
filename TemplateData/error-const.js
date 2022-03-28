@@ -133,6 +133,11 @@ const ERROR_CODE = {
     message: 'Create token with signature digger failed.',
   },
 
+  GET_PRICE_PACKAGE_DIGGER_FAILED: {
+    code: 'ERROR_DIGGER_0009',
+    message: 'Get price package digger failed.',
+  },
+
   // house
   MINT_HOUSE_FAILED: {
     code: 'ERROR_HOUSE_0001',
@@ -152,6 +157,11 @@ const ERROR_CODE = {
   GET_TOKEN_DETAIL_BY_OWNER_HOUSE_FAILED: {
     code: 'ERROR_HOUSE_0003',
     message: 'Get token detail by owner house failed.',
+  },
+
+  GET_WAREHOUSE_SHOP_FAILED: {
+    code: 'ERROR_HOUSE_0004',
+    message: 'Get warehouse shop failed.',
   },
 
   // vault
@@ -245,9 +255,14 @@ const SUCCESS_CODE = {
     message: 'Create token with signature digger successfully.',
   },
 
+  GET_PRICE_PACKAGE_DIGGER_SUCCESS: {
+    code: 'SUCCESS_DIGGER_0009',
+    message: 'Get price package digger successfully.',
+  },
+
   // house
   MINT_HOUSE_SUCCESS: {
-    code: 'SUCCESS_HOUSE_0001',
+    code: 'SUCCESS_HOUSE_0000',
     message: 'Mint house successfully.',
   },
 
@@ -264,6 +279,11 @@ const SUCCESS_CODE = {
   GET_TOKEN_DETAIL_BY_OWNER_HOUSE_SUCCESS: {
     code: 'SUCCESS_HOUSE_0003',
     message: 'Get token detail by owner house successfully.',
+  },
+
+  GET_WAREHOUSE_SHOP_SUCCESS: {
+    code: 'SUCCESS_HOUSE_0004',
+    message: 'Get warehouse shop successfully.',
   },
 
   // vault
