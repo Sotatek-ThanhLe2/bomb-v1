@@ -8,7 +8,6 @@ window.web3gl.digger = {
   diggerPackage1: {},
   diggerPackage5: {},
   diggerPackage10: {},
-  getUnitPriceDigger,
   mintDigger,
   upgradeDigger,
   getClaimableTokensDigger,
