@@ -160,7 +160,7 @@ async function connect() {
   try {
     const chainId = await web3.eth.getChainId();
     if (chainId !== CHAIN_ID_TESTNET) {
-      setError(ERROR_CODE.WRONG_NETWORK);
+      // setError(ERROR_CODE.WRONG_NETWORK);
       await window.ethereum.request({
         method: 'wallet_switchEthereumChain',
         params: [{ chainId: web3.utils.toHex(CHAIN_ID_TESTNET) }],
