@@ -25,7 +25,7 @@ async function mintDigger(count) {
     setError(ERROR_CODE.MINT_DIGGER_NOT_NEGATIVE);
     return;
   }
-  if (count >= MAX_DIGGER_MINT) {
+  if (count > MAX_DIGGER_MINT) {
     setError(ERROR_CODE.MINT_DIGGER_MINT_LIMIT);
     return;
   }
