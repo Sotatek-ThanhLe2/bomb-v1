@@ -27,6 +27,8 @@ const DEFAULT_WEB3GL = {
   getWeb3Gl,
   signMessage,
   isApproved,
+  jsonStringify,
+  jsonParse,
   signMessageResponse: '',
   errorMessage: '',
   errorCode: '',
@@ -45,6 +47,14 @@ function setWallet(walletAddress = 'Connect wallet') {
 
 function setBalanceMland(balance = window.web3gl.balanceOfMland) {
   document.getElementById('wallet-mland-token').innerHTML = balance;
+}
+
+function jsonStringify(data) {
+  return JSON.stringify(data);
+}
+
+function jsonParse(data) {
+  return JSON.parse(data);
 }
 
 setWallet();
