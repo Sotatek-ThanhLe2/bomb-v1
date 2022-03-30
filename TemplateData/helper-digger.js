@@ -5,13 +5,24 @@ const diggerDesignContract = new web3.eth.Contract(
 );
 
 window.web3gl.digger = {
-  diggerPackage1: {},
-  diggerPackage5: {},
-  diggerPackage10: {},
+  diggerPackage: [
+    {
+      unit: 1,
+      price: 0,
+    },
+    {
+      unit: 5,
+      price: 0,
+    },
+    {
+      unit: 10,
+      price: 0,
+    },
+  ],
   mintDigger,
   upgradeDigger,
   getClaimableTokensDigger,
-  // getProcessableTokensDigger,
+  getPricePackageDigger,
   processTokenRequestsDigger,
   rentDigger,
   createTokenWithSignature,
@@ -176,18 +187,12 @@ async function getPricePackageDigger() {
   activeLoading();
   try {
     const mintCost = await diggerDesignContract.methods.getMintCost().call();
-    window.web3gl.digger.diggerPackage1 = {
-      unit: 1,
-      price: parseFloat(formatBalance(new BigNumber(mintCost))),
-    };
-    window.web3gl.digger.diggerPackage5 = {
-      unit: 5,
-      price: parseFloat(formatBalance(new BigNumber(mintCost).times(5))),
-    };
-    window.web3gl.digger.diggerPackage10 = {
-      unit: 10,
-      price: parseFloat(formatBalance(new BigNumber(mintCost).times(10))),
-    };
+    window.web3gl.digger.diggerPackage = window.web3gl.digger.diggerPackage.map(
+      (i) => ({
+        ...i,
+        price: parseFloat(formatBalance(new BigNumber(mintCost).times(i.unit))),
+      })
+    );
     setSuccess(SUCCESS_CODE.GET_PRICE_PACKAGE_DIGGER_SUCCESS);
   } catch (error) {
     setError(ERROR_CODE.GET_PRICE_PACKAGE_DIGGER_FAILED);
