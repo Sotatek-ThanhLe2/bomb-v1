@@ -15,14 +15,15 @@
 </head>
 
 <body class="bg-bg1 bg-no-repeat bg-cover">
-  <!-- <div>
+  <div>
     <button onclick="window.web3gl.digger.mintDigger(1)">Digger Mint</button>
     <button onclick="window.web3gl.digger.upgradeDigger(23,24)">upgradeDigger</button>
     <button onclick="window.web3gl.digger.rentDigger(23)">rentDigger</button>
     <button onclick="window.web3gl.getBlockNumber()">get block</button>
     <button onclick="window.web3gl.house.mintHouse(1)">mintHouse</button>
     <button onclick="window.web3gl.house.getWarehousesShop()">getWarehousesShop</button>
-  </div> -->
+    <button onclick="window.web3gl.vault.claimToken('user', 'amount', 'nonce', 'signature')">claimToken</button>
+  </div>
   <div class="flex justify-between items-center px-8 mt-7">
     <div class="flex items-center">
       <img src="/img/logo.png" alt="">
@@ -172,7 +173,9 @@
   <script type="text/javascript" src="TemplateData/abiDesignDigger.js"></script>
   <script type="text/javascript" src="TemplateData/abiDesignHouse.js"></script>
   <script type="text/javascript" src="TemplateData/abiHouse.js"></script>
+  <script type="text/javascript" src="TemplateData/abiVault.js"></script>
   <script type="text/javascript" src="TemplateData/helper.js"></script>
+  <script type="text/javascript" src="TemplateData/helper-vault.js"></script>
   <script type="text/javascript" src="TemplateData/helper-house.js"></script>
   <script type="text/javascript" src="TemplateData/helper-digger.js"></script>
   <script type="text/javascript" src="TemplateData/info-server.js"></script>
