@@ -73,6 +73,17 @@ function deactiveLoading() {
   return (window.web3gl.loading = false);
 }
 
+function tryCatch(cb) {
+  activeLoading();
+  try {
+    cb();
+  } catch (error) {
+    console.log('error: ', error);
+  } finally {
+    deactiveLoading();
+  }
+}
+
 // format balance , wallet
 function formatBalance(balance) {
   return new BigNumber(balance).div(10 ** 18).toString();
@@ -141,6 +152,7 @@ if (window.ethereum) {
     }
     window.web3gl.disconnect();
     resetData();
+    window.location.reload();
   });
 }
 
@@ -195,8 +207,9 @@ async function connect() {
     setSuccess(SUCCESS_CODE.CONNECT_WALLET_SUCCESS);
   } catch (error) {
     setError(ERROR_CODE.METAMASK_CONNECT_FAILED);
+  } finally {
+    deactiveLoading();
   }
-  deactiveLoading();
 }
 
 function disconnect() {

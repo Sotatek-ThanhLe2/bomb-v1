@@ -5,10 +5,11 @@ window.web3gl.vault = {
 };
 
 async function claimToken(user, amount, nonce, signature) {
+  console.log('das');
   if (!window.web3gl.checkAddressMetamask()) return;
   activeLoading();
   try {
-    await vaultContract.methodds
+    await vaultContract.methods
       .claimToken(user, amount, nonce, signature)
       .send({
         from: window.web3gl.address,
