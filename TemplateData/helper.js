@@ -157,7 +157,6 @@ if (window.ethereum) {
     }
     window.web3gl.disconnect();
     resetData();
-    window.location.reload();
   });
 }
 
