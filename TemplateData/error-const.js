@@ -134,7 +134,7 @@ const ERROR_CODE = {
   },
 
   GET_PRICE_PACKAGE_DIGGER_FAILED: {
-    code: 'ERROR_DIGGER_0009',
+    code: 'ERROR_DIGGER_0013',
     message: 'Get price package digger failed.',
   },
 
@@ -150,17 +150,17 @@ const ERROR_CODE = {
   },
 
   BURN_HOUSE_FAILED: {
-    code: 'ERROR_HOUSE_0002',
+    code: 'ERROR_HOUSE_0003',
     message: 'Burn house failed.',
   },
 
   GET_TOKEN_DETAIL_BY_OWNER_HOUSE_FAILED: {
-    code: 'ERROR_HOUSE_0003',
+    code: 'ERROR_HOUSE_0004',
     message: 'Get token detail by owner house failed.',
   },
 
   GET_WAREHOUSE_SHOP_FAILED: {
-    code: 'ERROR_HOUSE_0004',
+    code: 'ERROR_HOUSE_0005',
     message: 'Get warehouse shop failed.',
   },
 
@@ -267,7 +267,7 @@ const SUCCESS_CODE = {
   },
 
   WIDTHDRAW_HOUSE_SUCCESS: {
-    code: 'SUCCESS_HOUSE_0002',
+    code: 'SUCCESS_HOUSE_0001',
     message: 'Mint house successfully.',
   },
 
@@ -297,9 +297,8 @@ const SUCCESS_CODE = {
 //   const arr = Object.keys(o);
 //   const newArr = [...new Set(arr.map((i) => o[`${i}`].code))];
 //   const newArr1 = arr.map((i) => o[`${i}`].code);
-//   console.log(arr.length, 'key');
-//   console.log(arr, 'code');
-//   console.log(newArr, 'code');
+//   console.log(newArr1.length, 'key');
+//   console.log(newArr, 'key ...set');
 // }
 // checkSameCode(ERROR_CODE);
 // checkSameCode(SUCCESS_CODE);
