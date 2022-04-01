@@ -10,6 +10,7 @@ const DEFAULT_WEB3GL = {
   isEnoughBalance: false,
   balanceNativeCoin: '0',
   balanceOfMland: '0',
+  browserReload,
   checkAddressMetamask,
   checkErrorCodeMetamask,
   setWallet,
@@ -55,6 +56,10 @@ function jsonStringify(data) {
 
 function jsonParse(data) {
   return JSON.parse(data);
+}
+
+function browserReload() {
+  window.location.reload();
 }
 
 setWallet();
