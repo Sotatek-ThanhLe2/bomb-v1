@@ -2,6 +2,10 @@
 // const CHAIN_ID_POLYGON_MAINET = 137;
 // const CHAIN_ID_POLYGON_TESTNET = 80001;
 
+// init web3
+const web3 = new Web3(window.ethereum);
+const MLAND_TOKEN_VALUE = '0.06';
+const BASE_URL = 'https://mland-api.sotatek.works/api/v1/';
 const MAX_DIGGER_MINT = 10;
 const UNLIMITED_ALLOWANCE_IN_BASE_UNITS =
   '115792089237316195423570985008687907853269984665640564039457584007913129639935';
@@ -15,6 +19,19 @@ const DIGGER_CONTRACT = '0xB3C53030a34af584d1B3A4A67D742EA6Fc44B9eB';
 const DIGGER_DESIGN_CONTRACT = '0x8AE9E5c9De9Ff64b9b837193AA65E8ef276A7dE1';
 const VAULT_CONTRACT = '0x2c1cD699C422f57193aA70E993318DbBc5F43F62';
 
+// contract
+const contractMland = new web3.eth.Contract(abiMland, MLAND_TOKEN);
+const houseContract = new web3.eth.Contract(abiHouse, HOUSE_CONTRACT);
+const houseDesignContract = new web3.eth.Contract(
+  abiDesignHouse,
+  HOUSE_DESIGN_CONTRACT
+);
+const diggerContract = new web3.eth.Contract(abiDigger, DIGGER_CONTRACT);
+const diggerDesignContract = new web3.eth.Contract(
+  abiDesignDigger,
+  DIGGER_DESIGN_CONTRACT
+);
+
 const RARITY_HOUSES = [
   {
     rarity: 0,
@@ -25,7 +42,7 @@ const RARITY_HOUSES = [
     energyRecoveryPerSecond: 2,
     diggerNumber: 4,
     price: 0,
-    unit: 0
+    unit: 0,
   },
   {
     rarity: 1,
@@ -36,7 +53,7 @@ const RARITY_HOUSES = [
     energyRecoveryPerSecond: 5,
     diggerNumber: 6,
     price: 0,
-    unit: 0
+    unit: 0,
   },
   {
     rarity: 2,
@@ -47,7 +64,7 @@ const RARITY_HOUSES = [
     energyRecoveryPerSecond: 8,
     diggerNumber: 8,
     price: 0,
-    unit: 0
+    unit: 0,
   },
   {
     rarity: 3,
@@ -58,7 +75,7 @@ const RARITY_HOUSES = [
     energyRecoveryPerSecond: 11,
     diggerNumber: 10,
     price: 0,
-    unit: 0
+    unit: 0,
   },
   {
     rarity: 4,
@@ -69,7 +86,7 @@ const RARITY_HOUSES = [
     energyRecoveryPerSecond: 14,
     diggerNumber: 12,
     price: 0,
-    unit: 0
+    unit: 0,
   },
   {
     rarity: 5,
@@ -80,6 +97,6 @@ const RARITY_HOUSES = [
     energyRecoveryPerSecond: 17,
     diggerNumber: 15,
     price: 0,
-    unit: 0
+    unit: 0,
   },
 ];

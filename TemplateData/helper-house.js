@@ -1,9 +1,3 @@
-const houseContract = new web3.eth.Contract(abiHouse, HOUSE_CONTRACT);
-const houseDesignContract = new web3.eth.Contract(
-  abiDesignHouse,
-  HOUSE_DESIGN_CONTRACT
-);
-
 function sumQuantitiesHouse(arr) {
   return arr.reduce((t, i) => parseFloat(t) + parseFloat(i), 0);
 }

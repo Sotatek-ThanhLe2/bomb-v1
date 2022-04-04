@@ -1,9 +1,3 @@
-const diggerContract = new web3.eth.Contract(abiDigger, DIGGER_CONTRACT);
-const diggerDesignContract = new web3.eth.Contract(
-  abiDesignDigger,
-  DIGGER_DESIGN_CONTRACT
-);
-
 window.web3gl.digger = {
   diggerPackage: [
     {

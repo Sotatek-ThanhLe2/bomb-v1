@@ -1,0 +1,165 @@
+key,vi,en
+key,vi,en
+OK,Đồng ý,Ok
+Cancel,Bỏ qua,Cancel
+Hello,Xin chào,Hello
+how are you,Mày có khoẻ không,How are you
+connect wallet,Kết nối ví,Connect Wallet
+inventory,Kho đồ,inventory
+Power,Sức mạnh,Power
+Speed,Di chuyển,inventory
+Stamina,Thể lực,Stamina
+Farm Speed,Tốc độ đào,Farm Speed
+Diggers,Danh sách thợ đào,Diggers
+Your chest,Kho đồ,Your chest
+Claim,Đúc,Claim
+Upgrade,Nâng cấp,Upgrade
+upgrade description,Digger sẽ bị xoá vĩnh viễn khi nâng cấp thành công.,This digger will be lost after a successful upgrade.
+House,Nhà,House
+Buy House,Mua nhà,Buy House
+House List,Nhà đã mua,House List
+Type,Loại,Type
+Size,Kích thước,Size
+Charge,Sạc,Charge
+Slot,Slot,Slot
+Price,Giá,Price
+Buy,Mua,Buy
+Use,Sử dụng,Use
+Total Sale,Đã bán,Total Sale
+Supply,Đã cung cấp,Supply
+Chest,Kho,Chest
+Shop,Shop,Shop
+Heroes,Thợ đào,Diggers
+Comming soon,Sắp xuất hiện,Comming soon
+Active,Kích hoạt,Active
+DeActive,Huỷ,Deactive
+Work,Làm việc,Active
+Rest,Nghỉ,Rest
+Home,Nhà,Home
+NEW MAP,BẢN ĐỒ MỚI,NEW MAP
+Alert,Thông báo,Alert
+Apply,Xong,Apply
+Rent date,Ngày bắt đầu thuê,Rent date
+SettingReloadScene,Trò chơi cần tải lại để thay đổi ngôn ngữ!,Game must reload to apply setting!
+completing map description,Chúc mừng bạn đã hoàn thành màn chơi,Congratulations on completing the map
+Congratulations,Chúc mừng,Congratulations
+Language,Ngôn ngữ,Language
+USER_0001,Token is empty!,Token is empty!
+VT-AUTH-ERR-00040,Hết quyền truy cập!,Token has expited!
+HOUSE_0101,Dữ liệu nhà không khả dụng!,Data of house is null!
+HOUSE_0102,Dữ liệu thuộc tính nhà không khả dụng!,Asset data of house is null!
+TIME_0001,Thời gian chờ đợi quá lâu!,Loading time out!
+DIGGER_0100,Số lượng digger được hoạt động đã ở mức tối đa!,The maximum number of diggers allowed to operate has been reached!
+DIGGER_0101,Bạn không sở hữu digger trong kho đồ!,Your digger is empty!
+DIGGER_0102,Vui lòng chọn đủ số digger cần thiết!,Digger upgrade is null!
+DIGGER_0103,Đã thuê digger thành công!,Rent digger success!
+DIGGER_0104,Không có digger nào hoạt động trong kho. Vui lòng cập nhật!,There are no diggers active in the inventory. Please update!
+USER_00000,Tài khoảng không tồn tại!,Account not found.
+USER_00001,Tài khoản đã tồn tại!,Account already existed.
+USER_00002,,Account adress and hash message are not matched.
+USER_00003,,Unauthorized user.
+USER_00004,,User has been locked.
+USER_00005,,System has been failed to verify signture.
+USER_00006,,Refresh tokens is expired.
+USER_00007,,Refresh tokens is expired.
+USER_00008,,You are not authorized to access this resource.
+USER_00025,,Email has been associted with an other account.
+USER_00026,,Failed to verify this email.
+USER_00027,,Email request not found!
+USER_00028,,Too much request
+LATEST_BLOCK_00001,,Latest block exist.
+POSITION_00002,,Position not found.
+ORDER_00001,,Order not found.
+ORDER_00002,,You do not have permission to cancel this order.
+ORDER_00003,,This order have been already canceled and waiting to confirm.
+ORDER_00004,,Order validation failed.
+ORDER_00005,,Order price validation failed.
+ORDER_00006,,Order trigger validation failed.
+ORDER_00007,,Order stop price validation failed.
+ORDER_00008,,Order trail value validation failed.
+ORDER_00009,,Your order size is smaller than the minimum size.
+ORDER_00010,,Your order size is greater than the maximum size.
+ORDER_00011,,You have insufficient margin to place this order.
+ORDER_00012,,Your order quantity precision is not match.
+ORDER_00013,,Your order price precision is not match.
+ORDER_00014,,Your order stop price precision is not match.
+ORDER_00015,,Your order stop price precision is not match.
+INSTRUMENT_00001,,Instrument does not exist.
+SETTING_00001,,This setting does not exist.
+SETTING_00002,,This setting does not valid.
+WITHDRAWL_00001,,Amount withdraw must be greater than or equal minumum amount.
+WITHDRAWL_00002,,Withdrawal fee has been just changed.
+APIKEY_00001,,Timestamp is too old.
+WAREHOUSE_00001,,Warehouse not found.
+WAREHOUSE_00002,,Warehouse is activating.
+WAREHOUSE_00003,,You do not have a home or home is full.
+MAP_00001,,Map not found.
+MAP_00002,,Map already exists.
+DIGGER_00001,,Digger not found.
+DIGGER_00002,,Digger is digging.
+DIGGER_00003,,Data is wrong.
+DIGGER_00004,,Wrong location.
+DIGGER_00005,,Digger cannot dig.
+DIGGER_00006,,Digger has rested or already not exists.
+DIGGER_00007,,Digger has rested or already not exists.
+DIGGER_00008,,Digger has not started mining yet.
+SOME_THING_WENT_WRONG,,Some thing went wrong.
+DIGGER_00009,,Digger is not active.
+DIGGER_00010,,Not enough energy.
+USER_00003,,Not enough balance of chain.
+NO_CODE_0001,,
+ERROR_MLAND_0001,,
+ERROR_BLC_0001,,
+ERROR_BLC_0002,,
+ERROR_BLC_0003,,
+ERROR_BLC_0004,,
+ERROR_BLC_0005,,
+ERROR_BLC_0006,,
+ERROR_BLC_0007,,
+ERROR_WALLET_0001,,
+ERROR_WALLET_0002,,
+ERROR_WALLET_0003,,
+ERROR_WALLET_0004,,
+ERROR_WALLET_0005,,
+ERROR_DIGGER_0001,,
+ERROR_DIGGER_0002,,
+ERROR_DIGGER_0003,,
+ERROR_DIGGER_0004,,
+ERROR_DIGGER_0005,,
+ERROR_DIGGER_0006,,
+ERROR_DIGGER_0007,,
+ERROR_DIGGER_0008,,
+ERROR_DIGGER_0009,,
+ERROR_DIGGER_0010,,
+ERROR_DIGGER_0011,,
+ERROR_DIGGER_0012,,
+ERROR_DIGGER_0009,,
+ERROR_HOUSE_0001,,
+ERROR_HOUSE_0002,,
+ERROR_HOUSE_0002,,
+ERROR_HOUSE_0003,,
+ERROR_HOUSE_0004,,
+ERROR_VAULT_0001,,
+SUCCESS_WALLET_0001,,
+SUCCESS_WALLET_0002,,
+SUCCESS_WALLET_0003,,
+SUCCESS_BLC_0001,,
+SUCCESS_BLC_0002,,
+SUCCESS_BLC_0003,,
+SUCCESS_BLC_0004,,
+SUCCESS_BLC_0005,,
+SUCCESS_DIGGER_0001,,
+SUCCESS_DIGGER_0002,,
+SUCCESS_DIGGER_0003,,
+SUCCESS_DIGGER_0004,,
+SUCCESS_DIGGER_0005,,
+SUCCESS_DIGGER_0006,,
+SUCCESS_DIGGER_0007,,
+SUCCESS_DIGGER_0008,,
+SUCCESS_DIGGER_0009,,
+SUCCESS_HOUSE_0001,,
+SUCCESS_HOUSE_0002,,
+SUCCESS_HOUSE_0002,,
+SUCCESS_HOUSE_0003,,
+SUCCESS_HOUSE_0004,,
+SUCCESS_VAULT_0001,,

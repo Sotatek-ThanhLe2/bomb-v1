@@ -15,38 +15,11 @@
 </head>
 
 <body class="bg-bg1 bg-no-repeat bg-cover">
-  <div>
-    <button onclick="window.web3gl.digger.mintDigger(1)">Digger Mint</button>
-    <button onclick="window.web3gl.digger.upgradeDigger(23,24)">upgradeDigger</button>
-    <button onclick="window.web3gl.digger.getPricePackageDigger()">getPricePackageDigger</button>
-    <button onclick="window.web3gl.getBlockNumber()">get block</button>
-    <button onclick="window.web3gl.house.mintHouse(1)">mintHouse</button>
-  </div>
-  <div class="flex justify-between items-center px-8 mt-7">
-    <div class="flex items-center">
-      <img src="/img/logo.png" alt="">
-      <!-- <object class="cursor-pointer mr-10" data="img/logo.svg" type="image/svg+xml"></object> -->
-      <!-- <object class="cursor-pointer mr-10" data="img/home-btn.svg" type="image/svg+xml"></object>
-      <object class="cursor-pointer mr-10" data="img/marketplace-btn.svg" type="image/svg+xml"></object>
-      <object class="cursor-pointer mr-10" data="img/learn-btn.svg" type="image/svg+xml"></object>
-      <object class="cursor-pointer mr-10" data="img/arcade-btn.svg" type="image/svg+xml"></object> -->
-    </div>
-    <div class="flex items-center">
-      <!--				token-->
-      <img src="/img/coin.png" width="48" height="48" alt="">
-      <!--				number-->
-      <div id="wallet-mland-token" class="text-40-40 px-2 rounded-[8px] text-white bg-[#000000]/[0.3] mx-2">
-      </div>
-      <!--				notification-->
-      <object data="img/notification-icon.svg" type="image/svg+xml"></object>
-      <button id="wallet-address" class="text-3xl p-2 rounded-[8px] text-white bg-[#EAD40C]/[0.8] mx-2 w-30"></button>
-    </div>
-  </div>
-
   <div id="unity-container" class="unity-desktop flex flex-col items-center mt-20">
     <div class="unity-canvas-game">
-      <canvas id="unity-canvas" width=1024 height=600>
-      </canvas>
+      <img src="/img/asset-top-left.png" class="asset-top-left" alt="">
+      <img src="/img/asset-top-right.png" class="asset-top-right" alt="">
+      <canvas id="unity-canvas" width=1024 height=600></canvas>
       <span class="button-full" id="unity-fullscreen-button" />
     </div>
     <div id="unity-loading-bar">
@@ -55,51 +28,20 @@
         <div id="unity-progress-bar-full"></div>
       </div>
     </div>
-    <!-- <div id="unity-fullscreen-button" /> -->
   </div>
 
-  <!-- <div class="flex justify-center items-center">
-    <div class="text-20-28 text-white bg-[#07EF9C] px-28 py-5 rounded-[0.5rem] mt-5">
-      SEVER ONLINE
+  <div class="flex justify-center mt-5 px-20">
+    <div class="flex flex-col justify-center items-center mr-2.5 rounded-[0.625rem] relative">
+      <img src="/img/mland.png" width="350" alt="">
+      <span id="mland-value" class="info-game"> - -</span>
     </div>
-  </div> -->
-
-  <div class="flex justify-center mt-20 px-20">
-    <div class="flex flex-col justify-center items-center mr-2.5 py-5 bg-[#000000]/[0.3] w-[40rem] rounded-[0.625rem]">
-      <div class="text-[#EAD40C] text-50-50">MLAND</div>
-      <div class="text-50-68 text-white">$0.01</div>
+    <div class="flex flex-col justify-center items-center mr-2.5 rounded-[0.625rem] relative">
+      <img src="/img/digger-sold.png" width="350" alt="">
+      <span id="digger-sold" class="info-game"> - -</span>
     </div>
-    <div class="flex flex-col justify-center items-center mr-2.5 py-5 bg-[#000000]/[0.3] w-[40rem] rounded-[0.625rem]">
-      <div class="text-[#EAD40C] text-50-50">DIGGER SOLD</div>
-      <div class="text-50-68 text-white">28,123,125</div>
-    </div>
-    <div class="flex flex-col justify-center items-center py-5 bg-[#000000]/[0.3] w-[40rem] rounded-[0.625rem]">
-      <div class="text-[#EAD40C] text-50-50">HOUSE SOLD</div>
-      <div class="text-50-68 text-white">123/5000</div>
-    </div>
-  </div>
-
-  <div class="flex justify-center my-9 px-20">
-    <div class="flex flex-col justify-start items-center mr-2.5 p-5 bg-[#000000]/[0.3] w-[40rem] rounded-[0.625rem]">
-      <div class="flex justify-between w-full">
-        <div class="text-24-32 text-white">New Diggers added</div>
-        <div class="text-24-32 text-white">20/11/2022</div>
-      </div>
-      <hr class="solid text-[#FFFFFF]/[0.2] w-full mt-3">
-    </div>
-    <div class="flex flex-col justify-start items-center mr-2.5 p-5 bg-[#000000]/[0.3] w-[40rem] rounded-[0.625rem]">
-      <div class="flex justify-between w-full">
-        <div class="text-24-32 text-white">Sever Update</div>
-        <div class="text-24-32 text-white">03/08/2022</div>
-      </div>
-      <hr class="solid text-[#FFFFFF]/[0.2] w-full mt-3">
-    </div>
-    <div class="flex flex-col justify-start items-center p-5 bg-[#000000]/[0.3] w-[40rem] rounded-[0.625rem]">
-      <div class="flex justify-between w-full">
-        <div class="text-24-32 text-white">Weekly challange</div>
-        <div class="text-24-32 text-white">20/11/2022</div>
-      </div>
-      <hr class="solid text-[#FFFFFF]/[0.2] w-full mt-3">
+    <div class="flex flex-col justify-center items-center rounded-[0.625rem] relative">
+      <img src="/img/house-sold.png" width="350" alt="">
+      <span id="house-sold" class="info-game"> - -</span>
     </div>
   </div>
 
@@ -112,7 +54,7 @@
       codeUrl: buildUrl + "/MlandCryptoDemo.wasm",
       streamingAssetsUrl: "StreamingAssets",
       companyName: "DefaultCompany",
-      productName: "Bomb",
+      productName: "Minera Game",
       productVersion: "1.0",
     };
 
@@ -164,14 +106,14 @@
   <script src="TemplateData/web3.min.js"></script>
   <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
   <script src='https://cdn.jsdelivr.net/npm/bignumber.js@9.0.2/bignumber.min.js'></script>
-  <script type="text/javascript" src="TemplateData/env.js"></script>
-  <script type="text/javascript" src="TemplateData/error-const.js"></script>
   <script type="text/javascript" src="TemplateData/abiMland.js"></script>
   <script type="text/javascript" src="TemplateData/abiDigger.js"></script>
   <script type="text/javascript" src="TemplateData/abiDesignDigger.js"></script>
   <script type="text/javascript" src="TemplateData/abiDesignHouse.js"></script>
   <script type="text/javascript" src="TemplateData/abiHouse.js"></script>
   <script type="text/javascript" src="TemplateData/abiVault.js"></script>
+  <script type="text/javascript" src="TemplateData/env.js"></script>
+  <script type="text/javascript" src="TemplateData/error-const.js"></script>
   <script type="text/javascript" src="TemplateData/helper.js"></script>
   <script type="text/javascript" src="TemplateData/helper-vault.js"></script>
   <script type="text/javascript" src="TemplateData/helper-house.js"></script>

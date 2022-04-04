@@ -37,17 +37,21 @@ const DEFAULT_WEB3GL = {
   successMessage: '',
 };
 
-// init web3
-const web3 = new Web3(window.ethereum);
-const contractMland = new web3.eth.Contract(abiMland, MLAND_TOKEN);
-window.web3gl = { ...DEFAULT_WEB3GL };
+window.web3gl = { ...window.web3gl, ...DEFAULT_WEB3GL };
 
 function setWallet(walletAddress = 'Connect wallet') {
-  document.getElementById('wallet-address').innerHTML = walletAddress;
+  // document.getElementById('wallet-address').innerHTML = walletAddress;
 }
 
 function setBalanceMland(balance = window.web3gl.balanceOfMland) {
-  document.getElementById('wallet-mland-token').innerHTML = balance;
+  // document.getElementById('wallet-mland-token').innerHTML = balance;
+}
+
+function setDataInfo(tokenValue = '0.06', digger = ' - ', house = ' - / -') {
+  const { address } = window.web3gl;
+  document.getElementById('mland-value').innerHTML = tokenValue;
+  document.getElementById('digger-sold').innerHTML = digger;
+  document.getElementById('house-sold').innerHTML = house;
 }
 
 function jsonStringify(data) {
@@ -85,6 +89,12 @@ function formatBalance(balance) {
 
 function formatAddress(wallet) {
   return String(wallet).slice(0, 5) + '...' + String(wallet).slice(-5);
+}
+
+function numberFormater(amount, fixed = 0) {
+  return parseFloat(amount)
+    .toFixed(fixed)
+    .replace(/\B(?=(\d{3})+(?!\d))/g, ',');
 }
 
 // set error, success message
@@ -189,6 +199,7 @@ async function connect() {
     window.web3gl.address = acc[0]?.toLowerCase();
     await window.web3gl.signMessage();
     await window.web3gl.getBalanceOfMland();
+
     console.log(
       'form',
       JSON.stringify({
@@ -197,10 +208,24 @@ async function connect() {
         message: MESSAGE_SIGN + window.web3gl.address,
       })
     );
-    setWallet(formatAddress(acc[0]));
+    if (window.web3gl.address) {
+      const { data } = await axios.get(BASE_URL + 'digger/total-digger-sold');
+      await window.web3gl.house.getWarehousesShop();
+      console.log('diggerSole: ', data);
+      setDataInfo(
+        MLAND_TOKEN_VALUE,
+        numberFormater(data?.total),
+        `${numberFormater(
+          parseFloat(window.web3gl.house.totalHouse) -
+            parseFloat(window.web3gl.house.avaiableHouse)
+        )} / ${numberFormater(window.web3gl.house.totalHouse)}`
+      );
+    }
     setSuccess(SUCCESS_CODE.CONNECT_WALLET_SUCCESS);
   } catch (error) {
+    console.log('error: ', error);
     setError(ERROR_CODE.METAMASK_CONNECT_FAILED);
+    disconnect();
   } finally {
     deactiveLoading();
   }
@@ -211,6 +236,7 @@ function disconnect() {
     ...window.web3gl,
     ...DEFAULT_WEB3GL,
   };
+  setDataInfo();
 }
 
 async function getBlockNumber() {
@@ -285,8 +311,13 @@ async function signMessage() {
   } catch (error) {
     setError(ERROR_CODE.METAMASK_SIGN_FAILED);
     window.web3gl.signMessageResponse = error.message;
+    if (error.code === 4001) {
+      disconnect();
+      return;
+    }
+  } finally {
+    deactiveLoading();
   }
-  deactiveLoading();
 }
 
 function getWeb3Gl() {
