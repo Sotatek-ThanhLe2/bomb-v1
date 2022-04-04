@@ -51,7 +51,7 @@ async function mintDigger(count) {
     setSuccess(SUCCESS_CODE.ACTION_MINT_DIGGER_SUCCESS);
     // await processTokenRequestsDigger();
   } catch (error) {
-    setSuccess(ERROR_CODE.ACTION_MINT_DIGGER_FAILED);
+    setError(ERROR_CODE.ACTION_MINT_DIGGER_FAILED);
     console.log(error, 'err');
   }
   deactiveLoading();
