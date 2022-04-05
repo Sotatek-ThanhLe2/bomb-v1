@@ -5,7 +5,6 @@ window.web3gl.vault = {
 };
 
 async function claimToken(user, amount, nonce, signature) {
-  console.log('das');
   if (!window.web3gl.checkAddressMetamask()) return;
   if (!(await window.web3gl.isApproved(VAULT_CONTRACT))) {
     const rs = await window.web3gl.approveToken(VAULT_CONTRACT);
