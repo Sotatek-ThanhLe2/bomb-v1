@@ -34,6 +34,13 @@ async function mintHouse(rarity = window.web3gl.house) {
       setError(ERROR_CODE.MINT_HOUSE_FAILED);
       return;
     }
+    const getHouseLimit = await houseDesignContract.methods
+      .getTokenLimit()
+      .call();
+    if (getHouseLimit >= 5) {
+      setError(ERROR_CODE.HOUSE_LIMITED);
+      return;
+    }
     await houseContract.methods.mint(rarity).send({
       from: window.web3gl.address,
     });

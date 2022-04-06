@@ -164,6 +164,11 @@ const ERROR_CODE = {
     message: 'Get warehouse shop failed.',
   },
 
+  HOUSE_LIMITED: {
+    code: 'ERROR_HOUSE_0006',
+    message: 'You already own the maximum warehouse.',
+  },
+
   // vault
   CLAIM_TOKEN_FAILED: {
     code: 'ERROR_VAULT_0001',
