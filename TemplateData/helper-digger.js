@@ -19,7 +19,7 @@ window.web3gl.digger = {
   getPricePackageDigger,
   processTokenRequestsDigger,
   rentDigger,
-  createTokenWithSignature,
+  claimDigger,
 };
 
 async function mintDigger(count) {
@@ -139,7 +139,7 @@ async function getClaimableTokensDigger(address) {
   deactiveLoading();
 }
 
-async function createTokenWithSignature(addressTo, details, nonce, signature) {
+async function claimDigger(addressTo, details, nonce, signature) {
   if (!window.web3gl.checkAddressMetamask()) return;
   activeLoading();
   try {

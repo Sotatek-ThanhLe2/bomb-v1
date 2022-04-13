@@ -30,6 +30,7 @@ const DEFAULT_WEB3GL = {
   isApproved,
   jsonStringify,
   jsonParse,
+  getDataInfo,
   signMessageResponse: '',
   errorMessage: '',
   errorCode: '',
@@ -47,8 +48,7 @@ function setBalanceMland(balance = window.web3gl.balanceOfMland) {
   // document.getElementById('wallet-mland-token').innerHTML = balance;
 }
 
-function setDataInfo(tokenValue = '0.06', digger = ' - ', house = ' - / -') {
-  const { address } = window.web3gl;
+function setDataInfo(tokenValue = '- -', digger = '- -', house = '- -') {
   document.getElementById('mland-value').innerHTML = tokenValue;
   document.getElementById('digger-sold').innerHTML = digger;
   document.getElementById('house-sold').innerHTML = house;
@@ -176,6 +176,21 @@ async function checkEnoughBalance(amountCompare = 0) {
   deactiveLoading();
 }
 
+async function getDataInfo() {
+  if (window.web3gl.address) {
+    const { data } = await axios.get(BASE_URL + 'digger/total-digger-sold');
+    await window.web3gl.house.getWarehousesShop();
+    setDataInfo(
+      MLAND_TOKEN_VALUE,
+      numberFormater(data?.total),
+      `${numberFormater(
+        parseFloat(window.web3gl.house.totalHouse) -
+          parseFloat(window.web3gl.house.avaiableHouse)
+      )} / ${numberFormater(window.web3gl.house.totalHouse)}`
+    );
+  }
+}
+
 async function connect() {
   if (window.web3gl.address) return;
   if (!window.ethereum) {
@@ -208,19 +223,7 @@ async function connect() {
         message: MESSAGE_SIGN + window.web3gl.address,
       })
     );
-    if (window.web3gl.address) {
-      const { data } = await axios.get(BASE_URL + 'digger/total-digger-sold');
-      await window.web3gl.house.getWarehousesShop();
-      console.log('diggerSole: ', data);
-      setDataInfo(
-        MLAND_TOKEN_VALUE,
-        numberFormater(data?.total),
-        `${numberFormater(
-          parseFloat(window.web3gl.house.totalHouse) -
-            parseFloat(window.web3gl.house.avaiableHouse)
-        )} / ${numberFormater(window.web3gl.house.totalHouse)}`
-      );
-    }
+    await getDataInfo();
     setSuccess(SUCCESS_CODE.CONNECT_WALLET_SUCCESS);
   } catch (error) {
     console.log('error: ', error);
@@ -334,7 +337,6 @@ async function approveToken(contractAddress) {
   }
   activeLoading();
   try {
-    console.log('approved ok');
     await contractMland.methods
       .approve(contractAddress, UNLIMITED_ALLOWANCE_IN_BASE_UNITS.toString())
       .send({
@@ -343,7 +345,6 @@ async function approveToken(contractAddress) {
     setSuccess(SUCCESS_CODE.APPROVED_SUCCESS);
     return true;
   } catch (error) {
-    console.log('error: ', error);
     setError(ERROR_CODE.APPROVED_FAILED);
   }
   deactiveLoading();

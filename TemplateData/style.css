@@ -8,12 +8,15 @@ body {
   padding: 0;
   margin: 0;
   min-width: 1440px;
-  overflow-x: auto;
-  background-image: url('/img/bg.png');
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
-  height: 100vh;
+  min-height: 100vh;
+}
+
+.img-bg {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  z-index: -1;
+  min-height: 800px;
 }
 #unity-canvas {
   background: #231f20;

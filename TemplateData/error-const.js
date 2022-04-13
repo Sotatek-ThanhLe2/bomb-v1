@@ -100,12 +100,12 @@ const ERROR_CODE = {
 
   PROCESS_DIGGER_FAILED: {
     code: 'ERROR_DIGGER_0006',
-    message: 'Mint Digger Failed.',
+    message: 'Process digger failed.',
   },
 
   UPGRADE_DIGGER_FAILED: {
     code: 'ERROR_DIGGER_0007',
-    message: 'Upgrade Digger Failed.',
+    message: 'Upgrade digger failed.',
   },
 
   CLAIMABLE_TOKEN_DIGGER_FAILED: {
@@ -146,7 +146,7 @@ const ERROR_CODE = {
 
   WIDTHDRAW_HOUSE_FAILED: {
     code: 'ERROR_HOUSE_0002',
-    message: 'Mint house failed.',
+    message: 'Widthdraw house failed.',
   },
 
   BURN_HOUSE_FAILED: {
@@ -227,7 +227,7 @@ const SUCCESS_CODE = {
 
   PROCESS_DIGGER_SUCCESS: {
     code: 'SUCCESS_DIGGER_0002',
-    message: 'Mint digger successfully.',
+    message: 'Process digger successfully.',
   },
 
   UPGRADE_DIGGER_SUCCESS: {
@@ -273,7 +273,7 @@ const SUCCESS_CODE = {
 
   WIDTHDRAW_HOUSE_SUCCESS: {
     code: 'SUCCESS_HOUSE_0001',
-    message: 'Mint house successfully.',
+    message: 'Widthdraw house successfully.',
   },
 
   BURN_HOUSE_SUCCESS: {
