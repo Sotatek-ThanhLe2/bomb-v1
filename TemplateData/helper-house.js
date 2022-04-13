@@ -73,7 +73,12 @@ async function getTokenDetailsByOwnerHouse() {
 
 async function getWarehousesShop() {
   // error message has been returned in the function checkAddressMetamask
-  if (!window.web3gl.checkAddressMetamask()) return;
+  // if (!window.web3gl.checkAddressMetamask()) return;
+
+  if (!window.ethereum) {
+    setError(ERROR_CODE.INSTALL_METAMASK);
+    return false;
+  }
 
   activeLoading();
   try {

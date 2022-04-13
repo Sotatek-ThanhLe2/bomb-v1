@@ -112,12 +112,10 @@ async function upgradeDigger(diggerId, commonDiggerId) {
 
   activeLoading();
   try {
-    console.log(diggerId, commonDiggerId, 'dsadas');
     await diggerContract.methods.upgrade(diggerId, commonDiggerId).send({
       from: window.web3gl.address,
     });
     setSuccess(SUCCESS_CODE.UPGRADE_DIGGER_SUCCESS);
-    console.log('ok');
   } catch (error) {
     setError(ERROR_CODE.UPGRADE_DIGGER_FAILED);
     console.log('error', error);
@@ -176,7 +174,12 @@ async function claimDigger(addressTo, details, nonce, signature) {
 
 async function getPricePackageDigger() {
   // error message has been returned in the function checkAddressMetamask
-  if (!window.web3gl.checkAddressMetamask()) return;
+  // if (!window.web3gl.checkAddressMetamask()) return;
+
+  if (!window.ethereum) {
+    setError(ERROR_CODE.INSTALL_METAMASK);
+    return false;
+  }
 
   activeLoading();
   try {

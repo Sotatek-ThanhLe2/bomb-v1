@@ -177,19 +177,22 @@ async function checkEnoughBalance(amountCompare = 0) {
 }
 
 async function getDataInfo() {
-  if (window.web3gl.address) {
-    const { data } = await axios.get(BASE_URL + 'digger/total-digger-sold');
-    await window.web3gl.house.getWarehousesShop();
-    setDataInfo(
-      MLAND_TOKEN_VALUE,
-      numberFormater(data?.total),
-      `${numberFormater(
-        parseFloat(window.web3gl.house.totalHouse) -
-          parseFloat(window.web3gl.house.avaiableHouse)
-      )} / ${numberFormater(window.web3gl.house.totalHouse)}`
-    );
-  }
+  const { data } = await axios.get(BASE_URL + 'digger/total-digger-sold');
+  await window.web3gl.house.getWarehousesShop();
+  setDataInfo(
+    MLAND_TOKEN_VALUE,
+    numberFormater(data?.total),
+    `${numberFormater(
+      parseFloat(window.web3gl.house.totalHouse) -
+        parseFloat(window.web3gl.house.avaiableHouse)
+    )} / ${numberFormater(window.web3gl.house.totalHouse)}`
+  );
 }
+
+(async () => {
+  await getDataInfo();
+  await window.web3gl.digger.getPricePackageDigger();
+})();
 
 async function connect() {
   if (window.web3gl.address) return;
@@ -201,7 +204,6 @@ async function connect() {
   try {
     const chainId = await web3.eth.getChainId();
     if (chainId !== CHAIN_ID_TESTNET) {
-      // setError(ERROR_CODE.WRONG_NETWORK);
       await window.ethereum.request({
         method: 'wallet_switchEthereumChain',
         params: [{ chainId: web3.utils.toHex(CHAIN_ID_TESTNET) }],
@@ -213,18 +215,23 @@ async function connect() {
     });
     window.web3gl.address = acc[0]?.toLowerCase();
     await window.web3gl.signMessage();
-    await window.web3gl.getBalanceOfMland();
 
-    console.log(
-      'form',
-      JSON.stringify({
-        address: window.web3gl.address,
-        signature: window.web3gl.signature,
-        message: MESSAGE_SIGN + window.web3gl.address,
-      })
-    );
-    await getDataInfo();
-    setSuccess(SUCCESS_CODE.CONNECT_WALLET_SUCCESS);
+    if (window.web3gl.successCode) {
+      await window.web3gl.getBalanceOfMland();
+
+      console.log(
+        'form',
+        JSON.stringify({
+          address: window.web3gl.address,
+          signature: window.web3gl.signature,
+          message: MESSAGE_SIGN + window.web3gl.address,
+        })
+      );
+
+      setSuccess(SUCCESS_CODE.CONNECT_WALLET_SUCCESS);
+    } else {
+      setError(ERROR_CODE.METAMASK_CONNECT_FAILED);
+    }
   } catch (error) {
     console.log('error: ', error);
     setError(ERROR_CODE.METAMASK_CONNECT_FAILED);
@@ -239,7 +246,6 @@ function disconnect() {
     ...window.web3gl,
     ...DEFAULT_WEB3GL,
   };
-  setDataInfo();
 }
 
 async function getBlockNumber() {
@@ -329,7 +335,6 @@ function getWeb3Gl() {
 }
 
 async function approveToken(contractAddress) {
-  console.log('approveToken', contractAddress);
   if (!window.web3gl.checkAddressMetamask()) return;
   if (!contractAddress || typeof contractAddress !== 'string') {
     setError(ERROR_CODE.APPROVED_FAILED);
