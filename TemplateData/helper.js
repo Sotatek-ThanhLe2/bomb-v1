@@ -7,6 +7,7 @@ const DEFAULT_WEB3GL = {
   symbol: '',
   name: '',
   blockNumber: 0,
+  numberTokenPending: 0,
   isEnoughBalance: false,
   balanceNativeCoin: '0',
   balanceOfMland: '0',
@@ -218,6 +219,8 @@ async function connect() {
 
     if (window.web3gl.successCode) {
       await window.web3gl.getBalanceOfMland();
+      await getDataInfo();
+      await getProcessableTokensDigger();
 
       console.log(
         'form',
@@ -297,8 +300,8 @@ async function getBalanceOfMland() {
       .balanceOf(window.web3gl.address)
       .call();
     const balanceOfMland = web3.utils.fromWei(rs);
-    window.web3gl.balanceOfMland = balanceOfMland;
-    setBalanceMland(balanceOfMland);
+    window.web3gl.balanceOfMland = numberFormater(balanceOfMland, 2);
+    setBalanceMland(numberFormater(balanceOfMland, 2));
     setSuccess(SUCCESS_CODE.GET_BALANCE_TOKEN_SUCCESS);
     return balanceOfMland;
   } catch (error) {

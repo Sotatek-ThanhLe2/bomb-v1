@@ -13,9 +13,11 @@ window.web3gl.digger = {
       price: 0,
     },
   ],
+  tokenPending: 0,
   mintDigger,
   upgradeDigger,
   getClaimableTokensDigger,
+  getProcessableTokensDigger,
   getPricePackageDigger,
   processTokenRequestsDigger,
   rentDigger,
@@ -154,23 +156,24 @@ async function claimDigger(addressTo, details, nonce, signature) {
   deactiveLoading();
 }
 
-// async function getProcessableTokensDigger() {
-// error message has been returned in the function checkAddressMetamask
-//   if (!window.web3gl.checkAddressMetamask()) return;
-//   activeLoading();
-//   try {
-//     const rs = await diggerContract.methods
-//       .getProcessableTokens(window.web3gl.address)
-//       .call();
-//     console.log(rs, 'rs');
-//     setSuccess(SUCCESS_CODE.PROCESSABLE_TOKEN_DIGGER_SUCCESS);
-//     return rs;
-//   } catch (error) {
-//     setError(ERROR_CODE.PROCESSABLE_TOKEN_DIGGER_FAILED);
-//     console.log(error, 'err');
-//   }
-//   deactiveLoading();
-// }
+async function getProcessableTokensDigger() {
+  // error message has been returned in the function checkAddressMetamask
+  if (!window.web3gl.checkAddressMetamask()) return;
+  activeLoading();
+  try {
+    const rs = await diggerContract.methods
+      .getProcessableTokens(window.web3gl.address)
+      .call();
+    console.log(rs, 'rs');
+    window.web3gl.digger.tokenPending = rs;
+    setSuccess(SUCCESS_CODE.PROCESSABLE_TOKEN_DIGGER_SUCCESS);
+    return rs;
+  } catch (error) {
+    setError(ERROR_CODE.PROCESSABLE_TOKEN_DIGGER_FAILED);
+    console.log(error, 'err');
+  }
+  deactiveLoading();
+}
 
 async function getPricePackageDigger() {
   // error message has been returned in the function checkAddressMetamask
