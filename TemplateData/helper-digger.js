@@ -165,7 +165,7 @@ async function getProcessableTokensDigger() {
       .getProcessableTokens(window.web3gl.address)
       .call();
     console.log(rs, 'rs');
-    window.web3gl.digger.tokenPending = rs;
+    window.web3gl.digger.tokenPending = Number(rs);
     setSuccess(SUCCESS_CODE.PROCESSABLE_TOKEN_DIGGER_SUCCESS);
     return rs;
   } catch (error) {
