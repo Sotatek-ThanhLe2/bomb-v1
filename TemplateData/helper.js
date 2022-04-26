@@ -244,6 +244,12 @@ async function connect() {
   }
 }
 
+setInterval(() => {
+  (async () => {
+    await getDataInfo();
+  })();
+}, 60 * 1000);
+
 function disconnect() {
   window.web3gl = {
     ...window.web3gl,

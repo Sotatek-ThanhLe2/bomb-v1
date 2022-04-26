@@ -238,6 +238,37 @@ const abiDigger = [
     type: 'event',
   },
   {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: false,
+        internalType: 'uint256',
+        name: 'baseId',
+        type: 'uint256',
+      },
+      {
+        indexed: false,
+        internalType: 'uint256',
+        name: 'materialId',
+        type: 'uint256',
+      },
+      {
+        indexed: false,
+        internalType: 'uint256',
+        name: 'newLevel',
+        type: 'uint256',
+      },
+      {
+        indexed: false,
+        internalType: 'uint256',
+        name: 'newPower',
+        type: 'uint256',
+      },
+    ],
+    name: 'UpgradeDigger',
+    type: 'event',
+  },
+  {
     inputs: [],
     name: 'BURNER_ROLE',
     outputs: [{ internalType: 'bytes32', name: '', type: 'bytes32' }],
@@ -702,16 +733,6 @@ const abiDigger = [
     ],
     name: 'upgrade',
     outputs: [],
-    stateMutability: 'nonpayable',
-    type: 'function',
-  },
-  {
-    inputs: [
-      { internalType: 'uint256', name: 'combineDiggerId', type: 'uint256' },
-      { internalType: 'uint256', name: 'diggerId', type: 'uint256' },
-    ],
-    name: 'upgradePowerDigger',
-    outputs: [{ internalType: 'uint256', name: 'power', type: 'uint256' }],
     stateMutability: 'nonpayable',
     type: 'function',
   },
