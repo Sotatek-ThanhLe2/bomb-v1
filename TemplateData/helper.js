@@ -1,4 +1,5 @@
 const DEFAULT_WEB3GL = {
+  BASE_URL: 'https://api-staging.mineraland.io/api/v1/',
   loading: false,
   messageLogin: MESSAGE_SIGN,
   networkId: CHAIN_ID_TESTNET,
@@ -178,7 +179,9 @@ async function checkEnoughBalance(amountCompare = 0) {
 }
 
 async function getDataInfo() {
-  const { data } = await axios.get(BASE_URL + 'digger/total-digger-sold');
+  const { data } = await axios.get(
+    window.web3gl.BASE_URL + 'digger/total-digger-sold'
+  );
   await window.web3gl.house.getWarehousesShop();
   setDataInfo(
     MLAND_TOKEN_VALUE,

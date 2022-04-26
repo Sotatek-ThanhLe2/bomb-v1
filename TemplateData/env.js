@@ -9,8 +9,7 @@ const MESSAGE_SIGN = 'Sign this message to login with address ';
 
 // Update ENV for each enviroment
 // Base API Backend Game
-// const BASE_URL = 'https://mland-api.sotatek.works/api/v1/';
-const BASE_URL = 'https://api-staging.mineraland.io/api/v1/';
+
 // Staging
 const ADMIN_CONTRACT = '0x21e85501Ec72178171bb3d677D56d424aD5d13Bf';
 const MLAND_TOKEN = '0x91582e0f5600d9BD0B24b865fc2B0Efae64b32Ed';
