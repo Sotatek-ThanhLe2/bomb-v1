@@ -98,9 +98,9 @@ async function getWarehousesShop() {
     }));
     window.web3gl.house.warehouses.reverse();
 
-    setSuccess(SUCCESS_CODE.GET_WAREHOUSE_SHOP_SUCCESS);
+    // setSuccess(SUCCESS_CODE.GET_WAREHOUSE_SHOP_SUCCESS);
   } catch (error) {
-    setError(ERROR_CODE.GET_WAREHOUSE_SHOP_FAILED);
+    // setError(ERROR_CODE.GET_WAREHOUSE_SHOP_FAILED);
     console.log('error: ', error);
   }
   deactiveLoading();
