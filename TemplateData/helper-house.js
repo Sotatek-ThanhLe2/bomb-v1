@@ -97,10 +97,7 @@ async function getWarehousesShop() {
       price: parseFloat(formatBalance(mintCosts[index])),
     }));
     window.web3gl.house.warehouses.reverse();
-
-    // setSuccess(SUCCESS_CODE.GET_WAREHOUSE_SHOP_SUCCESS);
   } catch (error) {
-    // setError(ERROR_CODE.GET_WAREHOUSE_SHOP_FAILED);
     console.log('error: ', error);
   }
   deactiveLoading();

@@ -14,6 +14,7 @@ window.web3gl.digger = {
     },
   ],
   tokenPending: 0,
+  upgradeCost: [],
   mintDigger,
   upgradeDigger,
   getClaimableTokensDigger,
@@ -22,6 +23,8 @@ window.web3gl.digger = {
   processTokenRequestsDigger,
   rentDigger,
   claimDigger,
+  getCostLevelRarity,
+  getUpgradeDiggerCosts,
 };
 
 async function mintDigger(count) {
@@ -181,7 +184,7 @@ async function getPricePackageDigger() {
 
   if (!window.ethereum) {
     setError(ERROR_CODE.INSTALL_METAMASK);
-    return false;
+    return;
   }
 
   activeLoading();
@@ -199,4 +202,26 @@ async function getPricePackageDigger() {
     console.log('error: ', error);
   }
   deactiveLoading();
+}
+
+async function getUpgradeDiggerCosts() {
+  const rs = await diggerDesignContract.methods.getUpgradeCosts().call();
+  window.web3gl.digger.upgradeCost = rs.map((i) =>
+    i.map((o) => formatBalance(o))
+  );
+}
+
+function getCostLevelRarity(rarity, level) {
+  if (!window.ethereum) {
+    setError(ERROR_CODE.INSTALL_METAMASK);
+    return;
+  }
+
+  if (window.web3gl.digger.upgradeCost.length === 0) {
+    return 'ERROR';
+  }
+  if (!window.web3gl.digger.upgradeCost[rarity][level - 1]) {
+    return 'ERROR';
+  }
+  return window.web3gl.digger.upgradeCost[rarity][level - 1];
 }

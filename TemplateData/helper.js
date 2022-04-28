@@ -223,7 +223,11 @@ async function connect() {
     if (window.web3gl.successCode) {
       await window.web3gl.getBalanceOfMland();
       await getDataInfo();
-      await getProcessableTokensDigger();
+      const rs = await getProcessableTokensDigger();
+      await window.web3gl.digger.getUpgradeDiggerCosts();
+      if (Number(rs) > 0 && !isNaN(rs)) {
+        await window.web3gl.digger.processTokenRequestsDigger();
+      }
 
       console.log(
         'form',
