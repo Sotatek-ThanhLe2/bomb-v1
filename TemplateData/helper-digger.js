@@ -205,6 +205,9 @@ async function getPricePackageDigger() {
 }
 
 async function getUpgradeDiggerCosts() {
+  if (!window.ethereum) {
+    return 'ERROR';
+  }
   const rs = await diggerDesignContract.methods.getUpgradeCosts().call();
   window.web3gl.digger.upgradeCost = rs.map((i) =>
     i.map((o) => formatBalance(o))
@@ -213,8 +216,7 @@ async function getUpgradeDiggerCosts() {
 
 function getCostLevelRarity(rarity, level) {
   if (!window.ethereum) {
-    setError(ERROR_CODE.INSTALL_METAMASK);
-    return;
+    return 'ERROR';
   }
 
   if (window.web3gl.digger.upgradeCost.length === 0) {
