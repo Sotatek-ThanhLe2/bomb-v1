@@ -7,6 +7,38 @@ const UNLIMITED_ALLOWANCE_IN_BASE_UNITS =
 const CHAIN_ID_TESTNET = 97;
 const MESSAGE_SIGN = 'Sign this message to login with address ';
 
+// Rarity Digger
+const RARITY_DIGGER =  [
+  {
+    rarityName: 'Common',
+    rarityValue: 0,
+  },
+  {
+    rarityName: 'Uncommon',
+    rarityValue: 1,
+  },
+  {
+    rarityName: 'Rare',
+    rarityValue: 2,
+  },
+  {
+    rarityName: 'Super Rare',
+    rarityValue: 3,
+  },
+  {
+    rarityName: 'Epic Rare',
+    rarityValue: 4,
+  },
+  {
+    rarityName: 'Legend',
+    rarityValue: 5,
+  },
+  {
+    rarityName: 'Super Legendary',
+    rarityValue: 6,
+  },
+];
+
 // Update ENV for each enviroment
 // Base API Backend Game
 

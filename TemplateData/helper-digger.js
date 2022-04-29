@@ -215,6 +215,7 @@ async function getUpgradeDiggerCosts() {
 }
 
 function getCostLevelRarity(rarity, level) {
+  
   if (!window.ethereum) {
     return 'ERROR';
   }
@@ -222,8 +223,13 @@ function getCostLevelRarity(rarity, level) {
   if (window.web3gl.digger.upgradeCost.length === 0) {
     return 'ERROR';
   }
-  if (!window.web3gl.digger.upgradeCost[Number(rarity)][Number(level) - 1]) {
+  const rarityDigger = RARITY_DIGGER.find(i => i.rarityName.toLocaleLowerCase() === rarity.toLocaleLowerCase());
+  if(!rarityDigger) {
     return 'ERROR';
   }
-  return window.web3gl.digger.upgradeCost[Number(rarity)][Number(level) - 1];
+
+  if (!window.web3gl.digger.upgradeCost[Number(rarityDigger.rarityValue)][Number(level) - 1]) {
+    return 'ERROR';
+  }
+  return window.web3gl.digger.upgradeCost[Number(rarityDigger.rarityValue)][Number(level) - 1];
 }
