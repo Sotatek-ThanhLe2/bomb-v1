@@ -215,6 +215,7 @@ async function getUpgradeDiggerCosts() {
 }
 
 function getCostLevelRarity(rarity, level) {
+  console.log(rarity, level, 'rarity, level');
   
   if (!window.ethereum) {
     return 'ERROR';
