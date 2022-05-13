@@ -120,6 +120,7 @@ async function upgradeDigger(diggerId, commonDiggerId) {
     await diggerContract.methods.upgrade(diggerId, commonDiggerId).send({
       from: window.web3gl.address,
     });
+    await window.web3gl.getBalanceOfMland();
     setSuccess(SUCCESS_CODE.UPGRADE_DIGGER_SUCCESS);
   } catch (error) {
     setError(ERROR_CODE.UPGRADE_DIGGER_FAILED);
@@ -216,21 +217,29 @@ async function getUpgradeDiggerCosts() {
 
 function getCostLevelRarity(rarity, level) {
   console.log(rarity, level, 'rarity, level');
-  
+
   if (!window.ethereum) {
     return 'ERROR';
   }
 
-  if (window.web3gl.digger.upgradeCost.length === 0) {
+  if (window.web3gl.digger.upgradeCost.length === 0 || !rarity || !level) {
     return 'ERROR';
   }
-  const rarityDigger = RARITY_DIGGER.find(i => i.rarityName.toLocaleLowerCase() === rarity.toLocaleLowerCase());
-  if(!rarityDigger) {
+  const rarityDigger = RARITY_DIGGER.find(
+    (i) => i.rarityName.toLocaleLowerCase() === rarity.toLocaleLowerCase()
+  );
+  if (!rarityDigger) {
     return 'ERROR';
   }
 
-  if (!window.web3gl.digger.upgradeCost[Number(rarityDigger.rarityValue)][Number(level) - 1]) {
+  if (
+    !window.web3gl.digger.upgradeCost[Number(rarityDigger.rarityValue)][
+      Number(level) - 1
+    ]
+  ) {
     return 'ERROR';
   }
-  return window.web3gl.digger.upgradeCost[Number(rarityDigger.rarityValue)][Number(level) - 1];
+  return window.web3gl.digger.upgradeCost[Number(rarityDigger.rarityValue)][
+    Number(level) - 1
+  ];
 }

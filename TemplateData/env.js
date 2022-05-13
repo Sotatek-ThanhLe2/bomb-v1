@@ -8,7 +8,7 @@ const CHAIN_ID_TESTNET = 97;
 const MESSAGE_SIGN = 'Sign this message to login with address ';
 
 // Rarity Digger
-const RARITY_DIGGER =  [
+const RARITY_DIGGER = [
   {
     rarityName: 'Common',
     rarityValue: 0,
