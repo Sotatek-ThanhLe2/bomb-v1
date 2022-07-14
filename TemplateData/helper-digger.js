@@ -113,7 +113,6 @@ async function rentDigger(diggerId) {
 
 async function getCostRentDigger() {
   // error message has been returned in the function checkAddressMetamask
-  // if (!window.web3gl.checkAddressMetamask()) return;
 
   activeLoading();
   try {
@@ -132,7 +131,7 @@ function checkCostRentDigger(rarity) {
     !RARITY_DIGGER.find((i) => i.rarityName === rarity)
   ) {
     setError(ERROR_CODE.DIGGIER_INVALID);
-    return;
+    return -1;
   }
   activeLoading();
   try {
@@ -145,6 +144,7 @@ function checkCostRentDigger(rarity) {
     return Number(rs);
   } catch (error) {
     setError(ERROR_CODE.GET_PRICE_RENT_DIGGER_FAILED);
+    return -1;
     // console.log('error: ', error);
   }
   deactiveLoading();
