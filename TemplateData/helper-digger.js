@@ -113,11 +113,11 @@ async function rentDigger(diggerId) {
 
 async function getCostRentDigger() {
   // error message has been returned in the function checkAddressMetamask
-  // if (!window.web3gl.checkAddressMetamask()) return;
-  // if (!ratiry || typeof ratiry !== 'number' || ratiry < 0 || rarity > 6) {
-  //   setError(ERROR_CODE.DIGGIER_INVALID);
-  //   return;
-  // }
+  if (!window.web3gl.checkAddressMetamask()) return;
+  if (!ratiry || typeof ratiry !== 'number' || ratiry < 0 || rarity > 6) {
+    setError(ERROR_CODE.DIGGIER_INVALID);
+    return;
+  }
   activeLoading();
   try {
     const rs = await diggerDesignContract.methods.getRentCost().call();
