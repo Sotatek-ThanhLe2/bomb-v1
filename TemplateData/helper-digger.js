@@ -114,29 +114,29 @@ async function rentDigger(diggerId) {
 async function getCostRentDigger() {
   // error message has been returned in the function checkAddressMetamask
   if (!window.web3gl.checkAddressMetamask()) return;
-  if (!ratiry || typeof ratiry !== 'number' || ratiry < 0 || rarity > 6) {
-    setError(ERROR_CODE.DIGGIER_INVALID);
-    return;
-  }
+
   activeLoading();
   try {
     const rs = await diggerDesignContract.methods.getRentCost().call();
     window.web3gl.digger.rentCost = rs.map((i) => Number(formatBalance(i)));
-    setSuccess(SUCCESS_CODE.GET_PRICE_RENT_DIGGER_SUCCESS);
   } catch (error) {
-    setError(ERROR_CODE.GET_PRICE_RENT_DIGGER_FAILED);
     // console.log('error: ', error);
   }
   deactiveLoading();
 }
 
 function checkCostRentDigger(ratiry) {
+  if (!ratiry || typeof ratiry !== 'number' || ratiry < 0 || rarity > 6) {
+    setError(ERROR_CODE.DIGGIER_INVALID);
+    return;
+  }
   activeLoading();
   try {
     const rs = window.web3gl.digger.rentCost[Number(ratiry)];
-
+    setSuccess(SUCCESS_CODE.GET_PRICE_RENT_DIGGER_SUCCESS);
     return Number(rs);
   } catch (error) {
+    setError(ERROR_CODE.GET_PRICE_RENT_DIGGER_FAILED);
     // console.log('error: ', error);
   }
   deactiveLoading();
