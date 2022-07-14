@@ -126,14 +126,22 @@ async function getCostRentDigger() {
 }
 
 function checkCostRentDigger(rarity) {
-  if (!rarity || typeof rarity !== 'number' || rarity < 0 || rarity > 6) {
+  if (
+    !rarity ||
+    typeof rarity !== 'string' ||
+    !RARITY_DIGGER.find((i) => i.rarityName === rarity)
+  ) {
     setError(ERROR_CODE.DIGGIER_INVALID);
     return;
   }
   activeLoading();
   try {
-    const rs = window.web3gl.digger.rentCost[Number(rarity)];
+    const rs =
+      window.web3gl.digger.rentCost[
+        RARITY_DIGGER.find((i) => i.rarityName === rarity).rarityValue
+      ];
     setSuccess(SUCCESS_CODE.GET_PRICE_RENT_DIGGER_SUCCESS);
+    console.log(rs, 'rs');
     return Number(rs);
   } catch (error) {
     setError(ERROR_CODE.GET_PRICE_RENT_DIGGER_FAILED);
