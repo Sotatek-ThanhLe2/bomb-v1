@@ -125,14 +125,14 @@ async function getCostRentDigger() {
   deactiveLoading();
 }
 
-function checkCostRentDigger(ratiry) {
-  if (!ratiry || typeof ratiry !== 'number' || ratiry < 0 || rarity > 6) {
+function checkCostRentDigger(rarity) {
+  if (!rarity || typeof rarity !== 'number' || rarity < 0 || rarity > 6) {
     setError(ERROR_CODE.DIGGIER_INVALID);
     return;
   }
   activeLoading();
   try {
-    const rs = window.web3gl.digger.rentCost[Number(ratiry)];
+    const rs = window.web3gl.digger.rentCost[Number(rarity)];
     setSuccess(SUCCESS_CODE.GET_PRICE_RENT_DIGGER_SUCCESS);
     return Number(rs);
   } catch (error) {
