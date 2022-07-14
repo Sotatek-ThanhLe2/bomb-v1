@@ -137,6 +137,15 @@ const ERROR_CODE = {
     code: 'ERROR_DIGGER_0013',
     message: 'Get price package digger failed.',
   },
+  DIGGER_MAXIMUM: {
+    code: 'ERROR_DIGGER_0014',
+    message: 'Maximum digger that can be minted is 100 per address only.',
+  },
+
+  GET_PRICE_RENT_DIGGER_FAILED: {
+    code: 'ERROR_DIGGER_0015',
+    message: 'Get price rent digger failed.',
+  },
 
   // house
   MINT_HOUSE_FAILED: {
@@ -263,6 +272,11 @@ const SUCCESS_CODE = {
   GET_PRICE_PACKAGE_DIGGER_SUCCESS: {
     code: 'SUCCESS_DIGGER_0009',
     message: 'Get price package digger successfully.',
+  },
+
+  GET_PRICE_RENT_DIGGER_SUCCESS: {
+    code: 'SUCCESS_DIGGER_0010',
+    message: 'Get price rent digger successfully.',
   },
 
   // house

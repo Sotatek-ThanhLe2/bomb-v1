@@ -15,6 +15,7 @@ window.web3gl.digger = {
   ],
   tokenPending: 0,
   upgradeCost: [],
+  rentCost: [],
   mintDigger,
   upgradeDigger,
   getClaimableTokensDigger,
@@ -25,11 +26,22 @@ window.web3gl.digger = {
   claimDigger,
   getCostLevelRarity,
   getUpgradeDiggerCosts,
+  checkCostRentDigger,
 };
 
 async function mintDigger(count) {
-  // error message has been returned in the function checkAddressMetamask
   if (!window.web3gl.checkAddressMetamask()) return;
+
+  // error message has been returned in the function checkAddressMetamask
+  const { data: currentDigger } = await axios.get(
+    window.web3gl.BASE_URL +
+      '/api/v1/digger/total-diggers/' +
+      window.web3gl.address
+  );
+  if (currentDigger && Number(currentDigger.total) + Number(count) > 100) {
+    setError(ERROR_CODE.DIGGER_MAXIMUM);
+    return;
+  }
 
   if (count <= 0) {
     setError(ERROR_CODE.MINT_DIGGER_NOT_NEGATIVE);
@@ -57,7 +69,7 @@ async function mintDigger(count) {
     // await processTokenRequestsDigger();
   } catch (error) {
     setError(ERROR_CODE.ACTION_MINT_DIGGER_FAILED);
-    console.log(error, 'err');
+    // console.log(error, 'err');
   }
   deactiveLoading();
 }
@@ -72,7 +84,7 @@ async function processTokenRequestsDigger() {
     });
     setSuccess(SUCCESS_CODE.MINT_DIGGER_SUCCESS);
   } catch (error) {
-    console.log(error, 'err');
+    // console.log(error, 'err');
     setError(ERROR_CODE.MINT_DIGGER_FAILED);
   }
   deactiveLoading();
@@ -93,7 +105,43 @@ async function rentDigger(diggerId) {
     setSuccess(SUCCESS_CODE.RENT_DIGGER_SUCCESS);
   } catch (error) {
     setError(ERROR_CODE.RENT_DIGGER_FAILED);
-    console.log('error: ', error);
+    // console.log('error: ', error);
+  }
+  deactiveLoading();
+}
+
+async function getCostRentDigger() {
+  // error message has been returned in the function checkAddressMetamask
+  // if (!window.web3gl.checkAddressMetamask()) return;
+  // if (!ratiry || typeof ratiry !== 'number' || ratiry < 0 || rarity > 6) {
+  //   setError(ERROR_CODE.DIGGIER_INVALID);
+  //   return;
+  // }
+  console.log('ok');
+  activeLoading();
+  try {
+    const rs = await diggerDesignContract.methods.getRentCost().call();
+    console.log(
+      'rs: ',
+      rs.map((i) => formatBalance(i))
+    );
+    window.web3gl.digger.rentCost = rs.map((i) => formatBalance(i));
+    setSuccess(SUCCESS_CODE.GET_PRICE_RENT_DIGGER_SUCCESS);
+  } catch (error) {
+    setError(ERROR_CODE.GET_PRICE_RENT_DIGGER_FAILED);
+    // console.log('error: ', error);
+  }
+  deactiveLoading();
+}
+
+function checkCostRentDigger(ratiry) {
+  activeLoading();
+  try {
+    const rs = window.web3gl.digger.rentCost[Number(ratiry)];
+
+    return Number(rs);
+  } catch (error) {
+    // console.log('error: ', error);
   }
   deactiveLoading();
 }
@@ -124,7 +172,7 @@ async function upgradeDigger(diggerId, commonDiggerId) {
     setSuccess(SUCCESS_CODE.UPGRADE_DIGGER_SUCCESS);
   } catch (error) {
     setError(ERROR_CODE.UPGRADE_DIGGER_FAILED);
-    console.log('error', error);
+    // console.log('error', error);
   }
   deactiveLoading();
 }
@@ -138,7 +186,7 @@ async function getClaimableTokensDigger(address) {
     setSuccess(SUCCESS_CODE.CLAIMABLE_TOKEN_DIGGER_SUCCESS);
   } catch (error) {
     setError(ERROR_CODE.CLAIMABLE_TOKEN_DIGGER_FAILED);
-    console.log('error', error);
+    // console.log('error', error);
   }
   deactiveLoading();
 }
@@ -155,7 +203,7 @@ async function claimDigger(addressTo, details, nonce, signature) {
     setSuccess(SUCCESS_CODE.CREATE_TOKEN_SIGNATURE_SUCCESS);
   } catch (error) {
     setError(ERROR_CODE.CREATE_TOKEN_SIGNATURE_FAILED);
-    console.log('error', error);
+    // console.log('error', error);
   }
   deactiveLoading();
 }
@@ -168,13 +216,13 @@ async function getProcessableTokensDigger() {
     const rs = await diggerContract.methods
       .getProcessableTokens(window.web3gl.address)
       .call();
-    console.log(rs, 'rs');
+    // console.log(rs, 'rs');
     window.web3gl.digger.tokenPending = Number(rs);
     setSuccess(SUCCESS_CODE.PROCESSABLE_TOKEN_DIGGER_SUCCESS);
     return rs;
   } catch (error) {
     setError(ERROR_CODE.PROCESSABLE_TOKEN_DIGGER_FAILED);
-    console.log(error, 'err');
+    // console.log(error, 'err');
   }
   deactiveLoading();
 }
@@ -200,7 +248,7 @@ async function getPricePackageDigger() {
     setSuccess(SUCCESS_CODE.GET_PRICE_PACKAGE_DIGGER_SUCCESS);
   } catch (error) {
     setError(ERROR_CODE.GET_PRICE_PACKAGE_DIGGER_FAILED);
-    console.log('error: ', error);
+    // console.log('error: ', error);
   }
   deactiveLoading();
 }
@@ -216,7 +264,7 @@ async function getUpgradeDiggerCosts() {
 }
 
 function getCostLevelRarity(rarity, level) {
-  console.log(rarity, level, 'rarity, level');
+  // console.log(rarity, level, 'rarity, level');
 
   if (!window.ethereum) {
     return 'ERROR';

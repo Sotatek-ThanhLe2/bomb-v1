@@ -40,7 +40,7 @@ async function mintHouse(rarity = window.web3gl.house) {
     setSuccess(SUCCESS_CODE.MINT_HOUSE_SUCCESS);
   } catch (error) {
     setError(ERROR_CODE.MINT_HOUSE_FAILED);
-    console.log('error: ', error);
+    // console.log('error: ', error);
   }
   deactiveLoading();
 }
@@ -98,7 +98,7 @@ async function getWarehousesShop() {
     }));
     window.web3gl.house.warehouses.reverse();
   } catch (error) {
-    console.log('error: ', error);
+    // console.log('error: ', error);
   }
   deactiveLoading();
 }

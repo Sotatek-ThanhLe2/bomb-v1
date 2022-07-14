@@ -25,7 +25,7 @@ async function claimToken(user, amount, nonce, signature) {
     setSuccess(SUCCESS_CODE.CLAIM_TOKEN_SUCCESS);
   } catch (error) {
     setError(ERROR_CODE.CLAIM_TOKEN_FAILED);
-    console.log('error: ', error);
+    // console.log('error: ', error);
   }
   deactiveLoading();
 }

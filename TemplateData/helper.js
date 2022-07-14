@@ -1,8 +1,8 @@
 const DEFAULT_WEB3GL = {
-  BASE_URL: 'https://api-staging.mineraland.io',
+  BASE_URL: 'https://mland-api.sotatek.works',
   loading: false,
   messageLogin: MESSAGE_SIGN,
-  networkId: CHAIN_ID_TESTNET,
+  networkId: CHAIN_ID_MAINET,
   address: '',
   signature: '',
   symbol: '',
@@ -101,13 +101,13 @@ function numberFormater(amount, fixed = 0) {
 
 // set error, success message
 function setError(errorObject = {}) {
-  console.log('err', errorObject);
+  // console.log('err', errorObject);
   window.web3gl.errorCode = errorObject.code;
   window.web3gl.errorMessage = errorObject.message;
 }
 
 function setSuccess(successObject = {}) {
-  console.log('ok', successObject);
+  // console.log('ok', successObject);
   window.web3gl.successCode = successObject.code;
   window.web3gl.successMessage = successObject.message;
 }
@@ -207,10 +207,10 @@ async function connect() {
   activeLoading();
   try {
     const chainId = await web3.eth.getChainId();
-    if (chainId !== CHAIN_ID_TESTNET) {
+    if (chainId !== CHAIN_ID_MAINET) {
       await window.ethereum.request({
         method: 'wallet_switchEthereumChain',
-        params: [{ chainId: web3.utils.toHex(CHAIN_ID_TESTNET) }],
+        params: [{ chainId: web3.utils.toHex(CHAIN_ID_MAINET) }],
       });
     }
 
@@ -223,27 +223,27 @@ async function connect() {
     if (window.web3gl.successCode) {
       await window.web3gl.getBalanceOfMland();
       await getDataInfo();
-      const rs = await getProcessableTokensDigger();
       await window.web3gl.digger.getUpgradeDiggerCosts();
+      const rs = await getProcessableTokensDigger();
       if (Number(rs) > 0 && !isNaN(rs)) {
         await window.web3gl.digger.processTokenRequestsDigger();
       }
 
-      console.log(
-        'form',
-        JSON.stringify({
-          address: window.web3gl.address,
-          signature: window.web3gl.signature,
-          message: MESSAGE_SIGN + window.web3gl.address,
-        })
-      );
+      // console.log(
+      //   'form',
+      //   JSON.stringify({
+      //     address: window.web3gl.address,
+      //     signature: window.web3gl.signature,
+      //     message: MESSAGE_SIGN + window.web3gl.address,
+      //   })
+      // );
 
       setSuccess(SUCCESS_CODE.CONNECT_WALLET_SUCCESS);
     } else {
       setError(ERROR_CODE.METAMASK_CONNECT_FAILED);
     }
   } catch (error) {
-    console.log('error: ', error);
+    // console.log('error: ', error);
     setError(ERROR_CODE.METAMASK_CONNECT_FAILED);
     disconnect();
   } finally {
@@ -255,7 +255,7 @@ setInterval(() => {
   (async () => {
     await getDataInfo();
   })();
-}, 60 * 1000);
+}, 60 * 60 * 1000);
 
 function disconnect() {
   window.web3gl = {

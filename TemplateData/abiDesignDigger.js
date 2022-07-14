@@ -186,6 +186,20 @@ const abiDesignDigger = [
     type: 'function',
   },
   {
+    inputs: [{ internalType: 'uint256', name: 'rarity', type: 'uint256' }],
+    name: 'getRentCost',
+    outputs: [{ internalType: 'uint256', name: '', type: 'uint256' }],
+    stateMutability: 'view',
+    type: 'function',
+  },
+  {
+    inputs: [],
+    name: 'getRentCost',
+    outputs: [{ internalType: 'uint256[]', name: '', type: 'uint256[]' }],
+    stateMutability: 'view',
+    type: 'function',
+  },
+  {
     inputs: [{ internalType: 'bytes32', name: 'role', type: 'bytes32' }],
     name: 'getRoleAdmin',
     outputs: [{ internalType: 'bytes32', name: '', type: 'bytes32' }],
@@ -285,13 +299,6 @@ const abiDesignDigger = [
     type: 'function',
   },
   {
-    inputs: [{ internalType: 'uint256', name: 'value', type: 'uint256' }],
-    name: 'setMintCost',
-    outputs: [],
-    stateMutability: 'nonpayable',
-    type: 'function',
-  },
-  {
     inputs: [
       { internalType: 'uint256', name: 'rarity', type: 'uint256' },
       {
@@ -339,6 +346,13 @@ const abiDesignDigger = [
       },
     ],
     name: 'setRarityStats',
+    outputs: [],
+    stateMutability: 'nonpayable',
+    type: 'function',
+  },
+  {
+    inputs: [{ internalType: 'uint256[]', name: 'value', type: 'uint256[]' }],
+    name: 'setRentCost',
     outputs: [],
     stateMutability: 'nonpayable',
     type: 'function',
