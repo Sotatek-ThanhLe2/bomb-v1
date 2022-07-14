@@ -113,7 +113,7 @@ async function rentDigger(diggerId) {
 
 async function getCostRentDigger() {
   // error message has been returned in the function checkAddressMetamask
-  if (!window.web3gl.checkAddressMetamask()) return;
+  // if (!window.web3gl.checkAddressMetamask()) return;
 
   activeLoading();
   try {
