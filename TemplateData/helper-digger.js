@@ -27,6 +27,7 @@ window.web3gl.digger = {
   getCostLevelRarity,
   getUpgradeDiggerCosts,
   checkCostRentDigger,
+  getCostRentDigger,
 };
 
 async function mintDigger(count) {
@@ -117,15 +118,10 @@ async function getCostRentDigger() {
   //   setError(ERROR_CODE.DIGGIER_INVALID);
   //   return;
   // }
-  console.log('ok');
   activeLoading();
   try {
     const rs = await diggerDesignContract.methods.getRentCost().call();
-    console.log(
-      'rs: ',
-      rs.map((i) => formatBalance(i))
-    );
-    window.web3gl.digger.rentCost = rs.map((i) => formatBalance(i));
+    window.web3gl.digger.rentCost = rs.map((i) => Number(formatBalance(i)));
     setSuccess(SUCCESS_CODE.GET_PRICE_RENT_DIGGER_SUCCESS);
   } catch (error) {
     setError(ERROR_CODE.GET_PRICE_RENT_DIGGER_FAILED);

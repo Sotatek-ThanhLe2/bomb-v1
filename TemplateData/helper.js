@@ -183,6 +183,7 @@ async function getDataInfo() {
     window.web3gl.BASE_URL + '/api/v1/digger/total-digger-sold'
   );
   await window.web3gl.house.getWarehousesShop();
+  await window.web3gl.digger.getCostRentDigger();
   setDataInfo(
     MLAND_TOKEN_VALUE,
     numberFormater(data?.total),
